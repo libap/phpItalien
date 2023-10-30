@@ -3,6 +3,7 @@
 <head>
     <title>Accordion Menu</title>
     <style>
+        /* CSS ACCORDEON*/
         * {
             margin: 0;
             padding: 0;
@@ -118,6 +119,8 @@
             color: #FFF;
         }
 
+
+
         .AfficherDetails{
             cursor: pointer;
             display: block;
@@ -135,113 +138,131 @@
 
         /*Ajout de css*/
         ::selection{
- color: #ffffff;
- background-color: #31285C;
-}
+        color: #ffffff;
+        background-color: #31285C;
+        }
 
 
 
 
-.custom-wrapper{
- 
- min-height:100px;
- background-color: #FFFFFF;
- border-radius: 5px;
- box-shadow: 5px 5px 15px rgba(0,0,0,0.05);
- padding: 30px;
-}
+        .custom-wrapper{
+        
+        min-height:100px;
+        background-color: #FFFFFF;
+        border-radius: 5px;
+        box-shadow: 5px 5px 15px rgba(0,0,0,0.05);
+        padding: 30px;
+        }
 
-.custom-input-field{
- width: 100%;
- height: 45px;
- border: none;
- padding: 10px;
- background-color: #eeeeee;
- color: gray;
- outline: none;
- font-size: 15px;
- margin-bottom: 20px;
- transition: .5s;
- border-radius: 5px;
-}
-
-.custom-input-field:hover{
-}
-
-.custom-heading{
- color: #3B3663;
- margin-bottom: 20px;
-}
-
-.custom-heading p{ 
- color: #AAA8BB;
-}
-
-.custom-heading i{
- font-size: 30px;
- color: #4D61FC;
-} 
-
-.custom-label{
- color: #AAA8BB;
- font-weight: 400;
-}
-
-custom-button{
- width: 100%;
- height: 45px;
- border: none;
- color: #FFFFFF;
- background-color: #31285C;
- border-radius: 5px;
- font-size: 17px;
- font-weight: 500;
- transition: 0.3s;
-}
-
-.custom-button:hover{
- background-color: #31283B;
-}
-
-.custom-row{
- min-width: 5px;
- min-height: 10px;
- display: flex;
- align-items: center;
- justify-content: space-between;
- margin-bottom: 10px;
- font-size: 15px;
-}
-
-.custom-custom-checkbox{
- width: 17px;
- height: 17px;
- border-radius: 5px;
- background-color: #eeeeee;
- display: flex;
- align-items: center;
- justify-content: center; 
- font-size: 10px;
- margin-right: 5px;
-}
-
-input[type=checkbox]:checked ~ .custom-custom-checkbox{
- background-color: #31285C;
-}
-
-input[type=checkbox]:checked ~ .custom-custom-checkbox::before {
-font-family: "Font Awesome 5 Free";
-  content: "\f00c";
-  display: inline-block;
-  font-weight: 900;
-  color: #ffffff;
-}
-
-.AjouterElement{
-    background-color: grey;
-}
+        .custom-input-field{
+        width: 100%;
+        height: 45px;
+        border: none;
+        padding: 10px;
+        background-color: #eeeeee;
+        color: gray;
+        outline: none;
+        font-size: 15px;
+        margin-bottom: 20px;
+        transition: .5s;
+        border-radius: 5px;
+        }
 
 
+        .custom-heading{
+        color: #3B3663;
+        margin-bottom: 20px;
+        }
+
+        .custom-heading p{ 
+        color: #AAA8BB;
+        }
+
+        .custom-heading i{
+        font-size: 30px;
+        color: #4D61FC;
+        } 
+
+        .custom-label{
+        color: #AAA8BB;
+        font-weight: 400;
+        }
+
+        custom-button{
+        width: 100%;
+        height: 45px;
+        border: none;
+        color: #FFFFFF;
+        background-color: #31285C;
+        border-radius: 5px;
+        font-size: 17px;
+        font-weight: 500;
+        transition: 0.3s;
+        }
+
+        .custom-button:hover{
+        background-color: #31283B;
+        }
+
+        .custom-row{
+        min-width: 5px;
+        min-height: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: 15px;
+        }
+
+
+        .AjouterElement{
+            background-color: grey;
+        }
+
+        /*CSS case à cocher*/
+
+        .container {
+        position :relative;
+        display:block;
+        width: 2rem;
+        height: 1rem;
+        }
+
+        .background {
+        position:absolute;
+        inset:0;
+            background-color: rgba(200,200,200,1);
+            border-radius: 20px;
+            transition:all 150ms ease;
+        }
+
+        .circle {
+        width: 1rem;
+        height: 1rem;
+        position: absolute;
+        background-color: white;
+        border-radius: 100%;
+        outline: 1px solid rgba(200,200,200,1);
+        left: 0;
+        top: 0;
+        transition: all 150ms ease;
+        }
+
+        .checkbox {
+        display: none;
+        }
+
+        .checkbox:checked ~ .background{
+            background-color: #623CEA;
+        border-color: #623CEA;
+        transition:all 250ms ease;
+        }
+
+        .checkbox:checked ~ .circle {
+        transform:translateX(100%);
+        transition: all 250ms ease;
+        outline-color: #623CEA;
+        }
 
     </style>
 </head>
@@ -264,15 +285,75 @@ font-family: "Font Awesome 5 Free";
         $stmt = $db->query($query);
 
         // Afficher ajouter
-        echo "<li><a href='#' class='AjouterElement'>Ajouter</a></li>";
-    
+        echo "<li><a href='#' id='cliclPuisAjouter' class='AjouterElement'>Ajouter</a></li>";
+      
+
+
+        // Code HTML du formulaire ajouter
+        echo '<div class="AfficherDetails" id="Ajouter" style="display: block;">
+            <form method="post" action="ajouter.php">
+                <div class="custom-wrapper">
+                    <div class="custom-heading">
+                        <h2>Welcome!</h2>
+                        <p>Sign In to your account</p>
+                    </div>
+
+                    <div class="custom-input-group">
+                        <input type="text" id="custom-id1" name="id" class="custom-input-id" placeholder="Image" value="1" style="display: none;">
+                    </div>
+
+                    <div class="custom-input-group">
+                        <input type="text" id="custom-image_1" name="image" class="custom-input-field" placeholder="Image">
+                    </div>
+
+                    <div class="custom-input-group">
+                        <input type="text" id="custom-titre_1" name="titre" class="custom-input-field" placeholder="Titre">
+                    </div>
+
+                    <div class="custom-input-group">
+                        <input type="text" id="custom-description_1" name="description" class="custom-input-field" placeholder="Description">
+                    </div>';
+                    // Liste des jours de la semaine
+                    $joursSemaine = array('lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi');
+
+                    $customInputGroups = '';
+
+                    // Supposons que $row contient les données de la base de données
+                    foreach ($joursSemaine as $jour) {
+                        // Créez un ID unique en utilisant le mot "ajouter" suivi de l'ID du jour
+                        $checkboxID = "input-ajouter-{$jour}";
+
+                        // Si la valeur pour le jour est 1, cochez la case
+                        $customInputGroups .= "
+                            <div class='custom-input-group custom-row'>
+                                <div class='custom-row'>
+                                    <label for='{$checkboxID}' class='container'>
+                                        <input class='checkbox' id='{$checkboxID}' type='checkbox' />
+                                        <div class='background'></div>
+                                        <div class='circle'></div>
+                                    </label>
+                                    {$jour}
+                                </div>
+                            </div>
+                        ";
+                    }
+
+                    // Ajoutez les cases à cocher générées au formulaire
+                    echo $customInputGroups;
 
 
 
-
-
-
-
+                    // Suite du formulaire
+                    echo '
+                                <div class="custom-input-group">
+                                    <input type="text" id="custom-prix_1" name="prix" class="custom-input-field" placeholder="Prix">
+                                </div>
+                                <div class="custom-input-group">
+                                    <button>Ajouter <i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>';
 
 
 
@@ -283,7 +364,7 @@ font-family: "Font Awesome 5 Free";
                 echo "<li><a href='#' class='ParentAfficherDetails' data-id='{$row['id']}'>{$row['nom']}</a></li>";
 
                 echo "<div class='AfficherDetails' data-id='{$row['id']}' style='display: block;'>";
-                echo "<form method='post' action='receptionForm.php'>"; // Début du formulaire
+                echo "<form method='post' action='editer.php'>"; // Début du formulaire
 
      
          
@@ -316,41 +397,36 @@ font-family: "Font Awesome 5 Free";
             
         
 
-            // Liste des jours de la semaine
+           // Liste des jours de la semaine
             $joursSemaine = array('lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi');
 
-            // Initialisez une variable pour stocker le code HTML des cases à cocher
             $customInputGroups = '';
 
-            // Supposons que $row contient les données de la base de données
             foreach ($joursSemaine as $jour) {
-                if ($row[$jour] == 1) {
-                    // Si la valeur pour le jour est 1, cochez la case
-                    $customInputGroups .= "
-                        <div class='custom-input-group custom-row'>
-                            <div class='custom-row'>
-                                <input type='checkbox' id='custom-{$jour}' hidden checked>
-                                <label for='custom-{$jour}' class='custom-custom-checkbox'></label>
-                                <label for='custom-{$jour}'>{$jour}</label>
-                            </div>
+                // Créez un ID unique pour chaque case à cocher en utilisant l'ID de la base de données et le jour
+                $checkboxID = "input-editer-{$row['id']}-{$jour}";
+
+                // Déterminez si la case à cocher doit être cochée en fonction de la valeur dans la base de données
+                $checked = $row[$jour] ? 'checked' : '';
+
+                $customInputGroups .= "
+                    <div class='custom-input-group custom-row'>
+                        <div class='custom-row'>
+                            <label for='{$checkboxID}' class='container'>
+                                <input class='checkbox' id='{$checkboxID}' type='checkbox' {$checked} />
+                                <div class='background'></div>
+                                <div class='circle'></div>
+                            </label>
+                            {$jour}
                         </div>
-                    ";
-                } else {
-                    // Sinon, ne cochez pas la case
-                    $customInputGroups .= "
-                        <div class='custom-input-group custom-row'>
-                            <div class='custom-row'>
-                                <input type='checkbox' id='custom-{$jour}' hidden>
-                                <label for='custom-{$jour}' class='custom-custom-checkbox'></label>
-                                <label for='custom-{$jour}'>{$jour}</label>
-                            </div>
-                        </div>
-                    ";
-                }
+                    </div>
+                ";
             }
 
-            // Ensuite, vous pouvez ajouter $customInputGroups à votre HTML
+            // Ajoutez les cases à cocher générées au formulaire
             echo $customInputGroups;
+
+
 
 
                 
@@ -362,7 +438,7 @@ font-family: "Font Awesome 5 Free";
             echo '
 
                 <div class="custom-input-group">
-                <button>Modifier/Ajouter <i class="fa-solid fa-arrow-right"></i></button>
+                <button>Modifier <i class="fa-solid fa-arrow-right"></i></button>
                 </div>
 
                 </div>
@@ -417,6 +493,7 @@ font-family: "Font Awesome 5 Free";
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    //MENU DEROULEMENT DE BASE
     $(function() {
         var Accordion = function(el, multiple) {
             this.el = el || {};
@@ -444,6 +521,7 @@ font-family: "Font Awesome 5 Free";
         var accordion = new Accordion($('#accordion'), false);
     });
 
+    //AFFICHER ENFANTS DU PARENTS AYANT LE MEME DATA ID
     $(document).ready(function() {
     // Sélectionnez tous les éléments ParentAfficherDetails
     var parents = $('.ParentAfficherDetails');
@@ -469,5 +547,32 @@ font-family: "Font Awesome 5 Free";
 });
 
 </script>
+<script>
+// BTN AJOUTER QUI AFFICHE UN NOUVEAU FORMULAIRE 
+document.addEventListener("DOMContentLoaded", function () {
+    // Sélectionnez l'élément "Ajouter" par son ID
+    var ajoutElement = document.getElementById("Ajouter");
+    var cliclPuisAjouter = document.getElementById("cliclPuisAjouter");
+
+    // Ajoutez un gestionnaire d'événement pour le clic sur "Ajouter"
+    cliclPuisAjouter.addEventListener("click", function (event) {
+        // Empêchez le comportement par défaut du lien
+        event.preventDefault();
+
+        // Basculez la visibilité de l'élément "Ajouter"
+        if (ajoutElement.style.display === "block") {
+            ajoutElement.style.display = "none";
+        } else {
+            ajoutElement.style.display = "block";
+        }
+
+    });
+});
+</script>
+
+
+
+
+
 </body>
 </html>

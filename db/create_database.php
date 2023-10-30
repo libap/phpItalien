@@ -11,11 +11,11 @@ $createTableQuery = "
         nom_fichier TEXT DEFAULT NULL,
         prix DECIMAL(6, 2),
         description TEXT,
-        lundi INTEGER DEFAULT 0,
-        mardi INTEGER DEFAULT 0,
-        mercredi INTEGER DEFAULT 0,
-        jeudi INTEGER DEFAULT 0,
-        vendredi INTEGER DEFAULT 0
+        lundi BOOLEAN,
+        mardi BOOLEAN,
+        mercredi BOOLEAN,
+        jeudi BOOLEAN,
+        vendredi BOOLEAN
      
     )
 ";
@@ -28,9 +28,10 @@ $db->exec($createTableQuery);
 $insertDataQuery = "
     INSERT INTO entree (nom, image, nom_fichier, prix, description, lundi, mardi, mercredi, jeudi, vendredi)
     VALUES
-        ('Entrée 1', 'image1.jpg', NULL, 10.99, 'Description de l entrée 1', 1, 1, 1, 1, 1),
-        ('Entrée 2', 'image2.jpg', NULL, 9.99, 'Description de l entrée 2', 1, 1, 1, 1, 1)
+        ('Entrée 1', 'image1.jpg', NULL, 10.99, 'Description de l entrée 1', 1, 0, 1, 0, 1),
+        ('Entrée 2', 'image2.jpg', NULL, 9.99, 'Description de l entrée 2', 0, 1, 0, 1, 0)
 ";
+
 
 
 

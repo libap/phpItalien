@@ -7,10 +7,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newImage = $_POST['image'];
     $newTitre = $_POST['titre'];
     $newDescription = $_POST['description'];
-    // ...
-
-    // Effectuez la mise à jour des données dans la base de données (vous devez implémenter la logique de connexion à la base de données)
-    // Assurez-vous d'éviter les failles de sécurité (injections SQL) en utilisant des requêtes préparées.
 
     // Exemple de requête SQL pour la mise à jour (vous devez adapter cela à votre schéma de base de données)
     $db = new PDO('sqlite:db/database.db');
