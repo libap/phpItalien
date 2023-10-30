@@ -121,7 +121,7 @@
         .AfficherDetails{
             cursor: pointer;
             display: block;
-            padding: 15px 15px 15px 42px;
+            
             color: grey;
             font-size: 14px;
             font-weight: 700;
@@ -237,6 +237,10 @@ font-family: "Font Awesome 5 Free";
   color: #ffffff;
 }
 
+.AjouterElement{
+    background-color: grey;
+}
+
 
 
     </style>
@@ -247,7 +251,7 @@ font-family: "Font Awesome 5 Free";
 
 <ul id="accordion" class="accordion">
     <li class="close">
-        <div class="link"><i class="fa fa-paint-brush"></i>Entrées<i class="fa fa-chevron-down"></i></div>
+        <div class="link"><i class="fa fa-paint-brush"></i>Entrées<i class="fa fa-chevron-down">▼</i></div>
         <ul class="submenu">
         <?php
         // Connexion à la base de données SQLite avec PDO
@@ -259,26 +263,32 @@ font-family: "Font Awesome 5 Free";
         // Exécution de la requête
         $stmt = $db->query($query);
 
+        // Afficher ajouter
+        echo "<li><a href='#' class='AjouterElement'>Ajouter</a></li>";
+    
+
+
+
+
+
+
+
+
+
+
+        //Afficher dynamiquement
+
         if ($stmt) {
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo "<li><a href='#' class='ParentAfficherDetails' data-id='{$row['id']}'>{$row['nom']}</a></li>";
+
                 echo "<div class='AfficherDetails' data-id='{$row['id']}' style='display: block;'>";
-                echo "<form>"; // Début du formulaire
-                echo "<label for='image'>Image:</label>";
-                echo "<input type='text' id='image' name='image' value='{$row['image']}'>";
-                // Répétez ces lignes pour d'autres champs (par exemple, nom_fichier, jour, prix, description)
-                // Exemple pour le champ "Nom du fichier" :
-                echo "<label for='nom_fichier'>Nom du fichier:</label>";
-                echo "<input type='text' id='nom_fichier' name='nom_fichier' value='{$row['nom_fichier']}'>";
-                // Fin du formulaire
-                echo "</form>";
-                echo "</div>";
+                echo "<form method='post' action='receptionForm.php'>"; // Début du formulaire
+
+     
+         
                 echo '
-                choisir image
-                nom
-                description
-                jour 
-                prix
+         
 
                 <div class="custom-wrapper">
 
@@ -287,27 +297,72 @@ font-family: "Font Awesome 5 Free";
                 <p>Sign In to your account</p>
                 </div>
 
-                <div class="custom-input-group">
-                <input type="text" id="custom-username" class="custom-input-field" placeholder="Username" >
-                </div>
+            ';
+            echo "<div class='custom-input-group'>";
+            echo "<input type='hidden'id='custom-id{$row['id']}' name='id' class='custom-input-id' placeholder='Image' value='{$row['id']}'>";
+            echo "</div>";
 
-                <div class="custom-input-group">
-                <input type="password" id="custom-password" class="custom-input-field" placeholder="Password" >
-                </div>
+            echo "<div class='custom-input-group'>";
+            echo "<input type='text' id='custom-image_{$row['id']}' name='image' class='custom-input-field' placeholder='Image' value='{$row['image']}'>";
+            echo "</div>";
+            
+            echo "<div class='custom-input-group'>";
+            echo "<input type='text' id='custom-titre_{$row['id']}' name='titre' class='custom-input-field' placeholder='Titre' value='{$row['nom']}'>";
+            echo "</div>";
+            
+            echo "<div class='custom-input-group'>";
+            echo "<input type='text' id='custom-description_{$row['id']}' name='description' class='custom-input-field' placeholder='Description' value='{$row['description']}'>";
+            echo "</div>";
+            
+        
 
-                <div class="custom-input-group custom-row">
+            // Liste des jours de la semaine
+            $joursSemaine = array('lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi');
 
-                <div class="custom-row">
-                <input type="checkbox" id="custom-remember" hidden>
-                <label for="custom-remember" class="custom-custom-checkbox"></label>
-                <label for="custom-remember">Remember me?</label>
-                </div>
+            // Initialisez une variable pour stocker le code HTML des cases à cocher
+            $customInputGroups = '';
+
+            // Supposons que $row contient les données de la base de données
+            foreach ($joursSemaine as $jour) {
+                if ($row[$jour] == 1) {
+                    // Si la valeur pour le jour est 1, cochez la case
+                    $customInputGroups .= "
+                        <div class='custom-input-group custom-row'>
+                            <div class='custom-row'>
+                                <input type='checkbox' id='custom-{$jour}' hidden checked>
+                                <label for='custom-{$jour}' class='custom-custom-checkbox'></label>
+                                <label for='custom-{$jour}'>{$jour}</label>
+                            </div>
+                        </div>
+                    ";
+                } else {
+                    // Sinon, ne cochez pas la case
+                    $customInputGroups .= "
+                        <div class='custom-input-group custom-row'>
+                            <div class='custom-row'>
+                                <input type='checkbox' id='custom-{$jour}' hidden>
+                                <label for='custom-{$jour}' class='custom-custom-checkbox'></label>
+                                <label for='custom-{$jour}'>{$jour}</label>
+                            </div>
+                        </div>
+                    ";
+                }
+            }
+
+            // Ensuite, vous pouvez ajouter $customInputGroups à votre HTML
+            echo $customInputGroups;
+
+
                 
-         
-                </div>
+
+            echo "<div class='custom-input-group'>";
+            echo "<input type='text' id='custom-prix_{$row['id']}' name='prix' class='custom-input-field' placeholder='Prix' value='{$row['prix']}'>";
+            echo "</div>";
+
+            echo '
 
                 <div class="custom-input-group">
-                <button>Login <i class="fa-solid fa-arrow-right"></i></button>
+                <button>Modifier/Ajouter <i class="fa-solid fa-arrow-right"></i></button>
                 </div>
 
                 </div>
@@ -317,10 +372,18 @@ font-family: "Font Awesome 5 Free";
                 ';
 
 
-
-
-            }
+            echo "</form>";
+            
+            
+            
+            echo "</div>";
+            
         }
+
+        // Le reste de votre page PHP (affichage du formulaire, etc.) se trouve ici
+            
+        }           // Fin du formulaire
+
         ?>
 
         </ul>
@@ -402,11 +465,7 @@ font-family: "Font Awesome 5 Free";
     });
 
     // Lorsque vous cliquez n'importe où sur la page, masquez les détails
-    $(document).on('click', function(e) {
-        if (!parents.is(e.target) && parents.has(e.target).length === 0) {
-            $('.AfficherDetails').hide();
-        }
-    });
+  
 });
 
 </script>

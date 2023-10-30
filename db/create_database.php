@@ -9,21 +9,30 @@ $createTableQuery = "
         nom TEXT,
         image TEXT,
         nom_fichier TEXT DEFAULT NULL,
-        jour TEXT,
         prix DECIMAL(6, 2),
-        description TEXT
+        description TEXT,
+        lundi INTEGER DEFAULT 0,
+        mardi INTEGER DEFAULT 0,
+        mercredi INTEGER DEFAULT 0,
+        jeudi INTEGER DEFAULT 0,
+        vendredi INTEGER DEFAULT 0
+     
     )
 ";
 
 $db->exec($createTableQuery);
 
 // Insertion de données de test dans la table "entree"
+// Insertion de données de test dans la table "entree" avec des 1 pour chaque jour de la semaine
+// Insertion de données de test dans la table "entree" avec des 1 pour chaque jour de la semaine
 $insertDataQuery = "
-    INSERT INTO entree (nom, image, nom_fichier, jour, prix, description)
+    INSERT INTO entree (nom, image, nom_fichier, prix, description, lundi, mardi, mercredi, jeudi, vendredi)
     VALUES
-        ('Entrée 1', 'image1.jpg', NULL, 'lundi', 10.99, 'Description de l entrée 1'),
-        ('Entrée 2', 'image2.jpg', NULL, 'mardi', 9.99, 'Description de l entrée 2')
+        ('Entrée 1', 'image1.jpg', NULL, 10.99, 'Description de l entrée 1', 1, 1, 1, 1, 1),
+        ('Entrée 2', 'image2.jpg', NULL, 9.99, 'Description de l entrée 2', 1, 1, 1, 1, 1)
 ";
+
+
 
 $db->exec($insertDataQuery);
 
