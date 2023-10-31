@@ -3,4 +3,5 @@
 -editer user 
 -empeche de se supprimer sois meme
 -ne pas generer de utilisateurs user en version admin_groupe = 0
--ajouter fichier dans inout image et stocker dans bon dossier
+-ajouter fichier dans  image et stocker dans bon dossier
+-cree une boucle sur entre plats desserts boissoons et administrateurs 
