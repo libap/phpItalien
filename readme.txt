@@ -7,3 +7,4 @@
 -cree une boucle sur entre plats desserts boissoons et administrateurs 
 -ajouter git ignore 
 -empecher faille sql
+-ajouter petit plus sur ajouter a droite
