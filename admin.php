@@ -101,6 +101,7 @@
 
         .submenu li {
             border-bottom: 1px solid #4b4a5e;
+            position: relative;
         }
 
         .submenu a {
@@ -264,6 +265,50 @@
         outline-color: #623CEA;
         }
 
+        /*SUPPRIMER ELEMENT*/
+        .IconeSupprimer {
+            position: absolute;
+            right: 10px; /* Ajustez la valeur en fonction de l'écart par rapport à la droite */
+            top: 50%; /* Place l'icône au milieu de la hauteur du parent */
+            transform: translateY(-50%); /* Corrige la position verticale pour centrer l'icône */
+        }
+
+        /*POPUP CODE CSS*/
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999; /* Assurez-vous que la popup est en avant-plan */
+        }
+
+        .popup-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .popup button {
+            margin: 5px;
+        }
+
+        .parentFormdelete{
+            display: flex;
+            justify-content: center; /* Centre horizontalement */
+            align-items: center; /* Centre verticalement */
+        }
+
+
+
+
     </style>
 </head>
 <body>
@@ -294,8 +339,9 @@
             <form method="post" action="ajouter.php">
                 <div class="custom-wrapper">
                     <div class="custom-heading">
-                        <h2>Welcome!</h2>
-                        <p>Sign In to your account</p>
+                        <h2>Créér nouveau</h2>
+                        <p>Mode ajout</p>
+                        
                     </div>
 
                     <div class="custom-input-group">
@@ -359,24 +405,35 @@
 
         if ($stmt) {
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                echo "<li><a href='#' class='ParentAfficherDetails' data-id='{$row['id']}'>{$row['nom']}</a></li>";
+                echo "<li><a href='#' class='ParentAfficherDetails' data-id='{$row['id']}'>{$row['nom']}</a> <p data-id='{$row['id']}' class='IconeSupprimer' >🗑️</p></li>";
+                // POPUP
+                echo "<div id='popup' class='popup' data-id='{$row['id']}' style='display: none;'>
+                    <div class='popup-content'>
+                        <p>Voulez-vous sûr de vouloir supprimer {$row['nom']} ?</p>
+                        <div class='parentFormdelete'>
+                            <form id='suppression-form' action='supprimer.php' method='POST'>
+                                <input type='hidden' name='id' value='{$row['id']}'>
+                                <button type='submit' id='oui' name='id-{$row['id']}'>Oui</button>
+                            </form>
+                            <button type='button' id='non'>Non</button>
+                        </div>
+                    </div>
+                </div>";
+
+
 
                 echo "<div class='AfficherDetails' data-id='{$row['id']}' style='display: block;'>";
                 echo "<form method='post' action='editer.php'>"; // Début du formulaire
 
      
-         
                 echo '
-         
-
                 <div class="custom-wrapper">
-
-                <div class="custom-heading">
-                <h2>Welcome!</h2>
-                <p>Sign In to your account</p>
-                </div>
-
-            ';
+                    <div class="custom-heading">
+                        <h2>' . htmlspecialchars($row['nom']) . '</h2>
+                        <p>Mode édition</p>
+                    </div>
+                ';
+            
             echo "<div class='custom-input-group'>";
             echo "<input type='hidden'id='custom-id{$row['id']}' name='id' class='custom-input-id' placeholder='Image' value='{$row['id']}'>";
             echo "</div>";
@@ -486,6 +543,8 @@
     </li>
 </ul>
 
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     //MENU DEROULEMENT DE BASE
@@ -564,6 +623,51 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
+
+<script>
+ // Attendez que le document soit chargé
+document.addEventListener("DOMContentLoaded", function () {
+    // Récupérez toutes les icônes de suppression
+    const iconesSupprimer = document.querySelectorAll('.IconeSupprimer');
+
+    // Pour chaque icône de suppression
+    iconesSupprimer.forEach(iconeSupprimer => {
+        // Lorsque l'icône de suppression est cliquée
+        iconeSupprimer.addEventListener('click', () => {
+            // Récupérez le data-id correspondant
+            const dataId = iconeSupprimer.getAttribute('data-id');
+            // Récupérez la popup associée
+            const popup = document.querySelector(`.popup[data-id='${dataId}']`);
+            // Affichez la popup
+            popup.style.display = 'block';
+        });
+    });
+
+    // Pour chaque popup
+    const popups = document.querySelectorAll('.popup');
+
+    // Pour chaque popup
+    popups.forEach(popup => {
+        // Lorsque le bouton "Non" est cliqué
+        const boutonNon = popup.querySelector('#non');
+        boutonNon.addEventListener('click', () => {
+            // Masquez la popup
+            popup.style.display = 'none';
+        });
+
+        // Lorsque le bouton "Oui" est cliqué
+        const boutonOui = popup.querySelector('#oui');
+        boutonOui.addEventListener('click', () => {
+            // Masquez la popup
+            popup.style.display = 'none';
+            // Ajoutez le code pour supprimer l'élément ici
+        });
+    });
+});
+
+</script>
+
+
 
 
 
