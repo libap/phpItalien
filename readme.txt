@@ -5,3 +5,4 @@
 -ne pas generer de utilisateurs user en version admin_groupe = 0
 -ajouter fichier dans  image et stocker dans bon dossier et renommer image si deja existante 
 -cree une boucle sur entre plats desserts boissoons et administrateurs 
+-ajouter git ignore 
