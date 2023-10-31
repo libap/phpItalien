@@ -1,0 +1,5 @@
+-ajouter user 
+-supprimer user 
+-editer user 
+-empeche de se supprimer sois meme
+-ne pas afficher user en version admin_groupe = 0
