@@ -314,21 +314,21 @@
                         <input type="text" id="custom-description_1" name="description" class="custom-input-field" placeholder="Description">
                     </div>';
                     // Liste des jours de la semaine
+
+                                
                     $joursSemaine = array('lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi');
 
-                    $customInputGroups = '';
-
-                    // Supposons que $row contient les données de la base de données
                     foreach ($joursSemaine as $jour) {
-                        // Créez un ID unique en utilisant le mot "ajouter" suivi de l'ID du jour
-                        $checkboxID = "input-ajouter-{$jour}";
+                        $checkboxID = "input-editer-{$jour}";
+                        $checkboxClasse = "input-ajouter-{$jour}";
 
-                        // Si la valeur pour le jour est 1, cochez la case
-                        $customInputGroups .= "
+                        
+
+                        echo "
                             <div class='custom-input-group custom-row'>
                                 <div class='custom-row'>
                                     <label for='{$checkboxID}' class='container'>
-                                        <input class='checkbox' id='{$checkboxID}' type='checkbox' />
+                                        <input class='checkbox' id='{$checkboxID}' name='{$checkboxClasse}' type='checkbox' />
                                         <div class='background'></div>
                                         <div class='circle'></div>
                                     </label>
@@ -337,9 +337,7 @@
                             </div>
                         ";
                     }
-
-                    // Ajoutez les cases à cocher générées au formulaire
-                    echo $customInputGroups;
+                
 
 
 
@@ -397,34 +395,31 @@
             
         
 
-           // Liste des jours de la semaine
-            $joursSemaine = array('lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi');
-
-            $customInputGroups = '';
-
-            foreach ($joursSemaine as $jour) {
-                // Créez un ID unique pour chaque case à cocher en utilisant l'ID de la base de données et le jour
-                $checkboxID = "input-editer-{$row['id']}-{$jour}";
-
-                // Déterminez si la case à cocher doit être cochée en fonction de la valeur dans la base de données
-                $checked = $row[$jour] ? 'checked' : '';
-
-                $customInputGroups .= "
-                    <div class='custom-input-group custom-row'>
-                        <div class='custom-row'>
-                            <label for='{$checkboxID}' class='container'>
-                                <input class='checkbox' id='{$checkboxID}' type='checkbox' {$checked} />
-                                <div class='background'></div>
-                                <div class='circle'></div>
-                            </label>
-                            {$jour}
-                        </div>
-                    </div>
-                ";
-            }
-
-            // Ajoutez les cases à cocher générées au formulaire
-            echo $customInputGroups;
+           
+           $joursSemaine = array('lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi');
+       
+           foreach ($joursSemaine as $jour) {
+               $checkboxID = "input-editer-{$row['id']}-{$jour}";
+               $checkboxClasse = "input-editer-{$jour}";
+       
+               $checked = $row[$jour] ? 'checked' : '';
+       
+               echo "
+                   <div class='custom-input-group custom-row'>
+                       <div class='custom-row'>
+                           <label for='{$checkboxID}' class='container'>
+                               <input class='checkbox' id='{$checkboxID}' name='{$checkboxClasse}' type='checkbox' {$checked} />
+                               <div class='background'></div>
+                               <div class='circle'></div>
+                           </label>
+                           {$jour}
+                       </div>
+                   </div>
+               ";
+           }
+           
+           
+            
 
 
 
