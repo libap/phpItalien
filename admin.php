@@ -360,27 +360,28 @@
 <h1>Bienvenue <?php echo $_SESSION['user_nom']; ?></h1>
 
 <ul id="accordion" class="accordion">
+
     <li class="close">
-        <div class="link"><i class="fa fa-paint-brush"></i>Entrées<i class="fa fa-chevron-down">▼</i></div>
+        <div class="link"><i class="fa fa-paint-brush"></i>Administrateurs<i class="fa fa-chevron-down">▼</i></div>
         <ul class="submenu">
         <?php
         // Connexion à la base de données SQLite avec PDO
         $db = new PDO('sqlite:db/database.db');
 
         // Requête SQL pour sélectionner toutes les entrées et leurs détails
-        $query = "SELECT * FROM entree";
+        $query = "SELECT * FROM administrateurs";
 
         // Exécution de la requête
         $stmt = $db->query($query);
 
         // Afficher ajouter
-        echo "<li><a href='#' id='cliclPuisAjouter' class='AjouterElement'>Ajouter</a></li>";
+        echo "<li><a href='#' id='cliclPuisAjouter' class='AjouterElement'>Ajouter utilisateur</a></li>";
       
 
 
         // Code HTML du formulaire ajouter
         echo '<div class="AfficherDetails" id="Ajouter" style="display: block;">
-            <form method="post" action="ajouter.php">
+            <form method="post" action="ajouterUser.php">
                 <div class="custom-wrapper">
                     <div class="custom-heading">
                         <h2>Créér nouveau</h2>
@@ -388,74 +389,71 @@
                         
                     </div>
 
+       
+
+            
+                        ';
+                    
+                    echo '
                     <div class="custom-input-group">
-                        <input type="text" id="custom-id1" name="id" class="custom-input-id" placeholder="Image" value="1" style="display: none;">
+                        <input type="text" id="custom-pseudo" name="pseudo" class="custom-input-field" placeholder="Pseudo">
+                    </div>
+                    <div class="custom-input-group">
+                        <input type="password" id="custom-mot_de_passe" name="mot_de_passe" class="custom-input-field" placeholder="Mot de passe">
                     </div>
 
-                    <div class="custom-input-group">
-                        <input type="text" id="custom-image_1" name="image" class="custom-input-field" placeholder="Image">
-                    </div>
-
-                    <div class="custom-input-group">
-                        <input type="text" id="custom-titre_1" name="titre" class="custom-input-field" placeholder="Titre">
-                    </div>
-
-                    <div class="custom-input-group">
-                        <input type="text" id="custom-description_1" name="description" class="custom-input-field" placeholder="Description">
-                    </div>';
-                    // Liste des jours de la semaine
-
+    
+                    ';
                                 
-                    $joursSemaine = array('lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi');
+                    $SuperUser = 'SuperUser';
+                    
 
-                    foreach ($joursSemaine as $jour) {
-                        $checkboxID = "input-editer-{$jour}";
-                        $checkboxClasse = "input-ajouter-{$jour}";
-
-                        
-
-                        echo "
-                            <div class='custom-input-group custom-row'>
-                                <div class='custom-row'>
-                                    <label for='{$checkboxID}' class='container'>
-                                        <input class='checkbox' id='{$checkboxID}' name='{$checkboxClasse}' type='checkbox' />
-                                        <div class='background'></div>
-                                        <div class='circle'></div>
-                                    </label>
-                                    {$jour}
-                                </div>
-                            </div>
-                        ";
-                    }
                 
+                    echo "
+                        <div class='custom-input-group custom-row'>
+                            <div class='custom-row'>
+                                <label for='{$SuperUser}' class='container'>
+                              
+                                    <input class='checkbox' id='{$SuperUser}' name='{$SuperUser}' type='checkbox' />
+                                    <div class='background'></div>
+                                    <div class='circle'></div>
+                                </label>
+                                {$SuperUser}
+                            </div>
+                        </div>
+                    ";
+            
+                
+                    echo '
 
+                    <div class="custom-input-group">
+                    <button type="submit">Ajouter <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+    
+                    </div>
 
+                    ';
 
                     // Suite du formulaire
                     echo '
-                                <div class="custom-input-group">
-                                    <input type="text" id="custom-prix_1" name="prix" class="custom-input-field" placeholder="Prix">
-                                </div>
-                                <div class="custom-input-group">
-                                    <button>Ajouter <i class="fa-solid fa-arrow-right"></i></button>
-                                </div>
                             </div>
+                            
                         </form>
                     </div>';
 
 
 
-        //Afficher dynamiquement
+        //Afficher dynamiquement les utilisateurs
 
         if ($stmt) {
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo "<li><a href='#' class='ParentAfficherDetails' data-id='{$row['id']}'>{$row['nom']}</a> <p data-id='{$row['id']}' class='IconeSupprimer' >🗑️</p></li>";
-                // POPUP
+                // POPUP SUPPRIMER USER
                 echo "<div id='popup' class='popup' data-id='{$row['id']}' style='display: none;'>
                     <div class='popup-content'>
                         <p>Voulez-vous sûr de vouloir supprimer {$row['nom']} ?</p>
                         <div class='parentFormdelete'>
-                            <form id='suppression-form' action='supprimer.php' method='POST'>
+                            <form id='suppression-form' action='supprimerUser.php' method='POST'>
                                 <input type='hidden' name='id' value='{$row['id']}'>
                                 <button type='submit' id='oui' name='id-{$row['id']}'>Oui</button>
                             </form>
@@ -464,10 +462,10 @@
                     </div>
                 </div>";
 
-
+                //DEBUT DU FORM
 
                 echo "<div class='AfficherDetails' data-id='{$row['id']}' style='display: block;'>";
-                echo "<form method='post' action='editer.php'>"; // Début du formulaire
+                echo "<form method='post' action='editerUser.php'>"; // Début du formulaire
 
      
                 echo '
@@ -477,86 +475,54 @@
                         <p>Mode édition</p>
                     </div>
                 ';
-            
-            echo "<div class='custom-input-group'>";
-            echo "<input type='hidden'id='custom-id{$row['id']}' name='id' class='custom-input-id' placeholder='Image' value='{$row['id']}'>";
-            echo "</div>";
-
-            echo "<div class='custom-input-group'>";
-            echo "<input type='text' id='custom-image_{$row['id']}' name='image' class='custom-input-field' placeholder='Image' value='{$row['image']}'>";
-            echo "</div>";
-            
-            echo "<div class='custom-input-group'>";
-            echo "<input type='text' id='custom-titre_{$row['id']}' name='titre' class='custom-input-field' placeholder='Titre' value='{$row['nom']}'>";
-            echo "</div>";
-            
-            echo "<div class='custom-input-group'>";
-            echo "<input type='text' id='custom-description_{$row['id']}' name='description' class='custom-input-field' placeholder='Description' value='{$row['description']}'>";
-            echo "</div>";
-            
-        
-
-           
-           $joursSemaine = array('lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi');
-       
-           foreach ($joursSemaine as $jour) {
-               $checkboxID = "input-editer-{$row['id']}-{$jour}";
-               $checkboxClasse = "input-editer-{$jour}";
-       
-               $checked = $row[$jour] ? 'checked' : '';
-       
-               echo "
-                   <div class='custom-input-group custom-row'>
-                       <div class='custom-row'>
-                           <label for='{$checkboxID}' class='container'>
-                               <input class='checkbox' id='{$checkboxID}' name='{$checkboxClasse}' type='checkbox' {$checked} />
-                               <div class='background'></div>
-                               <div class='circle'></div>
-                           </label>
-                           {$jour}
-                       </div>
-                   </div>
-               ";
-           }
-           
-           
-            
-
-
-
-
                 
-
-            echo "<div class='custom-input-group'>";
-            echo "<input type='text' id='custom-prix_{$row['id']}' name='prix' class='custom-input-field' placeholder='Prix' value='{$row['prix']}'>";
-            echo "</div>";
-
-            echo '
-
+                echo '
                 <div class="custom-input-group">
-                <button>Modifier <i class="fa-solid fa-arrow-right"></i></button>
+                    <input type="text" id="custom-titre_1" name="titre" class="custom-input-field" placeholder="Pseudo">
                 </div>
-
-                </div>
-
-
 
                 ';
+                
+        
+                echo "
+                <div class='custom-input-group custom-row'>
+                    <div class='custom-row'>
+                        <label for='id-{$row['id']}' class='container'>
+                            <input class='checkbox' id='id-{$row['id']}' name='id-{$row['id']}' type='checkbox' />
+                            <div class='background'></div>
+                            <div class='circle'></div>
+                        </label>
+                        {$SuperUser}
+                    </div>
+                </div>
+            ";
+            
+                echo '
+
+                    <div class="custom-input-group">
+                    <button>Modifier <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+
+                    </div>
 
 
-            echo "</form>";
-            
-            
-            
-            echo "</div>";
-            
-        }
 
-        // Le reste de votre page PHP (affichage du formulaire, etc.) se trouve ici
-            
-        }           // Fin du formulaire
+                    ';
 
-        ?>
+
+                echo "</form>";
+                
+                
+                
+                echo "</div>";
+                
+            }
+
+            // Le reste de votre page PHP (affichage du formulaire, etc.) se trouve ici
+                
+            }           // Fin du formulaire
+
+            ?>
 
         </ul>
     </li>
