@@ -8,3 +8,4 @@
 -ajouter git ignore 
 -empecher faille sql
 -ajouter petit plus sur ajouter a droite
+-mettre tout les fichiers dans un crud dans un seul avec un nom de fonction pour chacun
