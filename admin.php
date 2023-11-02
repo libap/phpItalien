@@ -360,7 +360,7 @@
 <h1>Bienvenue <?php echo $_SESSION['user_nom']; ?></h1>
 
 <ul id="accordion" class="accordion">
-
+      
     <li class="close">
         <div class="link"><i class="fa fa-paint-brush"></i>Administrateurs<i class="fa fa-chevron-down">▼</i></div>
         <ul class="submenu">
@@ -389,9 +389,6 @@
                         
                     </div>
 
-       
-
-            
                         ';
                     
                     echo '
@@ -401,8 +398,7 @@
                     <div class="custom-input-group">
                         <input type="password" id="custom-mot_de_passe" name="mot_de_passe" class="custom-input-field" placeholder="Mot de passe">
                     </div>
-
-    
+          
                     ';
                                 
                     $SuperUser = 'SuperUser';
@@ -462,7 +458,7 @@
                     </div>
                 </div>";
 
-                //DEBUT DU FORM
+                //DEBUT DU FORM EDIT
 
                 echo "<div class='AfficherDetails' data-id='{$row['id']}' style='display: block;'>";
                 echo "<form method='post' action='editerUser.php'>"; // Début du formulaire
@@ -471,24 +467,39 @@
                 echo '
                 <div class="custom-wrapper">
                     <div class="custom-heading">
-                        <h2>' . htmlspecialchars($row['nom']) . '</h2>
+                        <h2>Utilisateur ' . htmlspecialchars($row['nom']) . '</h2>
                         <p>Mode édition</p>
                     </div>
                 ';
                 
+                echo "
+                <div class='custom-input-group'>
+                    <input type='text' id='custom-titre_1' name='pseudo' class='custom-input-field' placeholder='Pseudo' value='{$row['nom']}'>
+                </div>
+                ";
+                
+
+       
+
                 echo '
                 <div class="custom-input-group">
-                    <input type="text" id="custom-titre_1" name="titre" class="custom-input-field" placeholder="Pseudo">
+                    <input type="password" id="custom-mot_de_passe" name="mot_de_passe" class="custom-input-field" placeholder="Mot de passe">
                 </div>
-
+                <div class="custom-input-group">
+                    <input type="hidden" name="id" value="' . $row['id'] . '">
+                </div>
                 ';
+
+
+                $checkedUser = $row['groupe_id'] ? 'checked' : '';
                 
-        
+                
                 echo "
+                
                 <div class='custom-input-group custom-row'>
                     <div class='custom-row'>
                         <label for='id-{$row['id']}' class='container'>
-                            <input class='checkbox' id='id-{$row['id']}' name='id-{$row['id']}' type='checkbox' />
+                            <input class='checkbox' id='id-{$row['id']}' name='id-{$row['id']}' type='checkbox' {$checkedUser} />
                             <div class='background'></div>
                             <div class='circle'></div>
                         </label>
@@ -526,6 +537,8 @@
 
         </ul>
     </li>
+   
+    <!--
     <li class="close">
         <div class="link"><i class="fa fa-paint-brush"></i>Entrées<i class="fa fa-chevron-down">▼</i></div>
         <ul class="submenu">
@@ -725,7 +738,7 @@
         ?>
 
         </ul>
-    </li>
+    </li>-->
     <li class="close">
         <div class="link"><i class="fa fa-code"></i>Plats<i class="fa fa-chevron-down"></i></div>
         <ul class="submenu">

@@ -25,20 +25,12 @@ $createAdminsTableQuery = "
         nom TEXT,
         email TEXT,
         mot_de_passe TEXT,
-        groupe_id INTEGER
-    )
-";
-
-$createGroupesTableQuery = "
-    CREATE TABLE IF NOT EXISTS groupes (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nom TEXT
+        groupe_id BOOLEAN
     )
 ";
 
 $db->exec($createTableQuery);
 $db->exec($createAdminsTableQuery);
-$db->exec($createGroupesTableQuery);
 
 // Insertion de données de test dans la table "entree"
 $insertDataQuery = "
@@ -51,7 +43,8 @@ $insertDataQuery = "
 $superAdminNom = 'admin';
 $superAdminEmail = 'superadmin@example.com';
 $superAdminMotDePasse = password_hash('mdp', PASSWORD_BCRYPT);
-$superAdminGroupeId = 1; // L'ID du groupe Super Admin
+$superAdminGroupeId = 1; // TRUE pour le groupe_id
+
 
 $insertSuperAdminQuery = "
     INSERT INTO administrateurs (nom, email, mot_de_passe, groupe_id) VALUES
@@ -61,7 +54,7 @@ $insertSuperAdminQuery = "
 $clientNom = 'jm';
 $clientEmail = 'client@example.com';
 $clientMotDePasse = password_hash('mdp', PASSWORD_BCRYPT);
-$clientGroupeId = 2; // L'ID du groupe Client
+$clientGroupeId = 0; // Valeur booléenne (true) pour le groupe_id
 
 $insertClientQuery = "
     INSERT INTO administrateurs (nom, email, mot_de_passe, groupe_id) VALUES
@@ -97,19 +90,6 @@ if ($resultAdmins) {
     $dataAdmins = [];
 }
 
-// Récupérer les données de la table "groupes"
-$selectGroupesQuery = "SELECT * FROM groupes";
-$resultGroupes = $db->query($selectGroupesQuery);
-
-if ($resultGroupes) {
-    $dataGroupes = [];
-    while ($row = $resultGroupes->fetchArray(SQLITE3_ASSOC)) {
-        $dataGroupes[] = $row;
-    }
-} else {
-    $dataGroupes = [];
-}
-
 // Fermer la base de données
 $db->close();
 
@@ -121,11 +101,6 @@ echo "<br><br>";
 
 echo "Données de la table 'administrateurs':<br>";
 print_r($dataAdmins);
-
-echo "<br><br>";
-
-echo "Données de la table 'groupes':<br>";
-print_r($dataGroupes);
 
 echo "<br><br>";
 
