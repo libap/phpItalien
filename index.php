@@ -11,7 +11,7 @@
   <title>Mini Cucina - Snack Italien</title>
   <meta name="title" content="Minicucina - Restaurant Italien">
 
-  <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+  <link rel="stylesheet" type="text/css" href="frontendAssets/css/styles.css">
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -82,7 +82,7 @@
     <div class="container">
 
       <a href="#" class="logo">
-        <img src="assets/images/logo_minicucina.png" width="160" height="50" alt="Logo Mini Cuccina">
+        <img src="frontendAssets/images/logo_minicucina.png" width="160" height="50" alt="Logo Mini Cuccina">
       </a>
 
       <nav class="navbar" data-navbar>
@@ -185,7 +185,7 @@
           <li class="slider-item active" data-hero-slider-item>
 
             <div class="slider-bg">
-              <img src="assets/images/hero-slider-1.jpg" width="1880" height="950" alt="" class="img-cover">
+              <img src="frontendAssets/images/hero-slider-1.jpg" width="1880" height="950" alt="" class="img-cover">
             </div>
 
             <p class="label-2 section-subtitle slider-reveal">Cuisine Italienne</p>
@@ -210,7 +210,7 @@
           <li class="slider-item" data-hero-slider-item>
 
             <div class="slider-bg">
-              <img src="assets/images/hero-slider-2.jpg" width="1880" height="950" alt="" class="img-cover">
+              <img src="frontendAssets/images/hero-slider-2.jpg" width="1880" height="950" alt="" class="img-cover">
             </div>
 
            
@@ -235,7 +235,7 @@
           <li class="slider-item" data-hero-slider-item>
 
             <div class="slider-bg">
-              <img src="assets/images/hero-slider-3.jpg" width="1880" height="950" alt="" class="img-cover">
+              <img src="frontendAssets/images/hero-slider-3.jpg" width="1880" height="950" alt="" class="img-cover">
             </div>
 
            
@@ -269,7 +269,7 @@
         </button>
 
         <a href="#about" class="hero-btn has-after">
-          <img src="assets/images/hero-icon.png" width="48" height="48" alt="booking icon">
+          <img src="frontendAssets/images/hero-icon.png" width="48" height="48" alt="booking icon">
 
           <span class="label-2 text-center span">Réserver une table</span>
         </a>
@@ -322,21 +322,21 @@
 
           <figure class="about-banner">
 
-            <img src="assets/images/about-banner.jpg"  width="570" height="570" loading="lazy" alt="about banner"
+            <img src="frontendAssets/images/about-banner.jpg"  width="570" height="570" loading="lazy" alt="about banner"
               class="w-100" data-parallax-item data-parallax-speed="1">
 
             <div class="abs-img abs-img-1 has-before" data-parallax-item data-parallax-speed="1.75">
-              <img src="assets/images/about-abs-image.jpg"   width="285" height="285" loading="lazy" alt=""
+              <img src="frontendAssets/images/about-abs-image.jpg"   width="285" height="285" loading="lazy" alt=""
                 class="w-100">
             </div>
 
             <div class="abs-img abs-img-2 has-before">
-              <img  src="assets/images/badge-2.png" width="133" height="134" loading="lazy" alt="">
+              <img  src="frontendAssets/images/badge-2.png" width="133" height="134" loading="lazy" alt="">
             </div>
 
           </figure>
 
-          <img  src="assets/images/shape-3.png" width="197" height="194" loading="lazy" alt="" class="shape">
+          <img  src="frontendAssets/images/shape-3.png" width="197" height="194" loading="lazy" alt="" class="shape">
 
         </div>
       </section>
@@ -363,7 +363,7 @@
                   <div class="menu-card hover:card">
                 
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/entrees/entree2.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
+                      <img src="frontendAssets/images/entrees/entree2.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
                     </figure>
                 
                     <div>
@@ -390,7 +390,7 @@
                   <div class="menu-card hover:card">
                 
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/entrees/entree3.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
+                      <img src="frontendAssets/images/entrees/entree3.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
                     </figure>
                 
                     <div>
@@ -423,7 +423,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats1.jpeg" width="100" height="100" loading="lazy" alt="Spaghetti Bolognaise" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats1.jpeg" width="100" height="100" loading="lazy" alt="Spaghetti Bolognaise" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -442,7 +442,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats2.jpeg" width="100" height="100" loading="lazy" alt="Lasagne Bolognaise" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats2.jpeg" width="100" height="100" loading="lazy" alt="Lasagne Bolognaise" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -461,7 +461,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats3.jpeg" width="100" height="100" loading="lazy" alt="Cannelloni à la Parmesan" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats3.jpeg" width="100" height="100" loading="lazy" alt="Cannelloni à la Parmesan" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -480,7 +480,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats4.jpeg" width="100" height="100" loading="lazy" alt="Pizza Mozzarella" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats4.jpeg" width="100" height="100" loading="lazy" alt="Pizza Mozzarella" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -509,7 +509,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts1.jpeg" width="100" height="100" loading="lazy" alt="Tartelette" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts1.jpeg" width="100" height="100" loading="lazy" alt="Tartelette" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -528,7 +528,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts2.jpeg" width="100" height="100" loading="lazy" alt="Salade de Fruits" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts2.jpeg" width="100" height="100" loading="lazy" alt="Salade de Fruits" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -547,7 +547,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts3.jpeg"width="100" height="100" loading="lazy" alt="Tiramisu au Café" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts3.jpeg"width="100" height="100" loading="lazy" alt="Tiramisu au Café" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -566,7 +566,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts4.jpeg" width="100" height="100" loading="lazy" alt="Panna Cotta à la Fraise" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts4.jpeg" width="100" height="100" loading="lazy" alt="Panna Cotta à la Fraise" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -595,7 +595,7 @@
                   <div class="menu-card hover:card">
     
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/entrees/entree1.jpeg" width="100" height="100" loading="lazy" alt="Greek Salad" class="img-cover">
+                      <img src="frontendAssets/images/entrees/entree1.jpeg" width="100" height="100" loading="lazy" alt="Greek Salad" class="img-cover">
                     </figure>
     
                     <div>
@@ -622,7 +622,7 @@
                   <div class="menu-card hover:card">
                 
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/entrees/entree2.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
+                      <img src="frontendAssets/images/entrees/entree2.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
                     </figure>
                 
                     <div>
@@ -649,7 +649,7 @@
                   <div class="menu-card hover:card">
                 
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/entrees/entree3.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
+                      <img src="frontendAssets/images/entrees/entree3.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
                     </figure>
                 
                     <div>
@@ -682,7 +682,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats1.jpeg" width="100" height="100" loading="lazy" alt="Spaghetti Bolognaise" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats1.jpeg" width="100" height="100" loading="lazy" alt="Spaghetti Bolognaise" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -701,7 +701,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats2.jpeg" width="100" height="100" loading="lazy" alt="Lasagne Bolognaise" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats2.jpeg" width="100" height="100" loading="lazy" alt="Lasagne Bolognaise" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -720,7 +720,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats3.jpeg" width="100" height="100" loading="lazy" alt="Cannelloni à la Parmesan" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats3.jpeg" width="100" height="100" loading="lazy" alt="Cannelloni à la Parmesan" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -739,7 +739,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats4.jpeg" width="100" height="100" loading="lazy" alt="Pizza Mozzarella" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats4.jpeg" width="100" height="100" loading="lazy" alt="Pizza Mozzarella" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -768,7 +768,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts1.jpeg" width="100" height="100" loading="lazy" alt="Tartelette" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts1.jpeg" width="100" height="100" loading="lazy" alt="Tartelette" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -787,7 +787,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts2.jpeg" width="100" height="100" loading="lazy" alt="Salade de Fruits" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts2.jpeg" width="100" height="100" loading="lazy" alt="Salade de Fruits" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -806,7 +806,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts3.jpeg"width="100" height="100" loading="lazy" alt="Tiramisu au Café" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts3.jpeg"width="100" height="100" loading="lazy" alt="Tiramisu au Café" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -825,7 +825,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts4.jpeg" width="100" height="100" loading="lazy" alt="Panna Cotta à la Fraise" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts4.jpeg" width="100" height="100" loading="lazy" alt="Panna Cotta à la Fraise" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -854,7 +854,7 @@
                   <div class="menu-card hover:card">
     
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/entrees/entree1.jpeg" width="100" height="100" loading="lazy" alt="Greek Salad" class="img-cover">
+                      <img src="frontendAssets/images/entrees/entree1.jpeg" width="100" height="100" loading="lazy" alt="Greek Salad" class="img-cover">
                     </figure>
     
                     <div>
@@ -881,7 +881,7 @@
                   <div class="menu-card hover:card">
                 
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/entrees/entree2.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
+                      <img src="frontendAssets/images/entrees/entree2.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
                     </figure>
                 
                     <div>
@@ -908,7 +908,7 @@
                   <div class="menu-card hover:card">
                 
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/entrees/entree3.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
+                      <img src="frontendAssets/images/entrees/entree3.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
                     </figure>
                 
                     <div>
@@ -941,7 +941,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats1.jpeg" width="100" height="100" loading="lazy" alt="Spaghetti Bolognaise" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats1.jpeg" width="100" height="100" loading="lazy" alt="Spaghetti Bolognaise" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -960,7 +960,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats2.jpeg" width="100" height="100" loading="lazy" alt="Lasagne Bolognaise" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats2.jpeg" width="100" height="100" loading="lazy" alt="Lasagne Bolognaise" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -979,7 +979,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats3.jpeg" width="100" height="100" loading="lazy" alt="Cannelloni à la Parmesan" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats3.jpeg" width="100" height="100" loading="lazy" alt="Cannelloni à la Parmesan" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -998,7 +998,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats4.jpeg" width="100" height="100" loading="lazy" alt="Pizza Mozzarella" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats4.jpeg" width="100" height="100" loading="lazy" alt="Pizza Mozzarella" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1027,7 +1027,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts1.jpeg" width="100" height="100" loading="lazy" alt="Tartelette" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts1.jpeg" width="100" height="100" loading="lazy" alt="Tartelette" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1046,7 +1046,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts2.jpeg" width="100" height="100" loading="lazy" alt="Salade de Fruits" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts2.jpeg" width="100" height="100" loading="lazy" alt="Salade de Fruits" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1065,7 +1065,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts3.jpeg"width="100" height="100" loading="lazy" alt="Tiramisu au Café" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts3.jpeg"width="100" height="100" loading="lazy" alt="Tiramisu au Café" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1084,7 +1084,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts4.jpeg" width="100" height="100" loading="lazy" alt="Panna Cotta à la Fraise" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts4.jpeg" width="100" height="100" loading="lazy" alt="Panna Cotta à la Fraise" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1113,7 +1113,7 @@
                   <div class="menu-card hover:card">
     
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/entrees/entree1.jpeg" width="100" height="100" loading="lazy" alt="Greek Salad" class="img-cover">
+                      <img src="frontendAssets/images/entrees/entree1.jpeg" width="100" height="100" loading="lazy" alt="Greek Salad" class="img-cover">
                     </figure>
     
                     <div>
@@ -1140,7 +1140,7 @@
                   <div class="menu-card hover:card">
                 
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/entrees/entree2.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
+                      <img src="frontendAssets/images/entrees/entree2.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
                     </figure>
                 
                     <div>
@@ -1167,7 +1167,7 @@
                   <div class="menu-card hover:card">
                 
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/entrees/entree3.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
+                      <img src="frontendAssets/images/entrees/entree3.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
                     </figure>
                 
                     <div>
@@ -1200,7 +1200,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats1.jpeg" width="100" height="100" loading="lazy" alt="Spaghetti Bolognaise" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats1.jpeg" width="100" height="100" loading="lazy" alt="Spaghetti Bolognaise" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1219,7 +1219,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats2.jpeg" width="100" height="100" loading="lazy" alt="Lasagne Bolognaise" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats2.jpeg" width="100" height="100" loading="lazy" alt="Lasagne Bolognaise" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1238,7 +1238,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats3.jpeg" width="100" height="100" loading="lazy" alt="Cannelloni à la Parmesan" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats3.jpeg" width="100" height="100" loading="lazy" alt="Cannelloni à la Parmesan" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1257,7 +1257,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats4.jpeg" width="100" height="100" loading="lazy" alt="Pizza Mozzarella" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats4.jpeg" width="100" height="100" loading="lazy" alt="Pizza Mozzarella" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1286,7 +1286,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts1.jpeg" width="100" height="100" loading="lazy" alt="Tartelette" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts1.jpeg" width="100" height="100" loading="lazy" alt="Tartelette" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1305,7 +1305,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts2.jpeg" width="100" height="100" loading="lazy" alt="Salade de Fruits" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts2.jpeg" width="100" height="100" loading="lazy" alt="Salade de Fruits" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1324,7 +1324,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts3.jpeg"width="100" height="100" loading="lazy" alt="Tiramisu au Café" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts3.jpeg"width="100" height="100" loading="lazy" alt="Tiramisu au Café" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1343,7 +1343,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts4.jpeg" width="100" height="100" loading="lazy" alt="Panna Cotta à la Fraise" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts4.jpeg" width="100" height="100" loading="lazy" alt="Panna Cotta à la Fraise" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1372,7 +1372,7 @@
                   <div class="menu-card hover:card">
     
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/entrees/entree1.jpeg" width="100" height="100" loading="lazy" alt="Greek Salad" class="img-cover">
+                      <img src="frontendAssets/images/entrees/entree1.jpeg" width="100" height="100" loading="lazy" alt="Greek Salad" class="img-cover">
                     </figure>
     
                     <div>
@@ -1399,7 +1399,7 @@
                   <div class="menu-card hover:card">
                 
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/entrees/entree2.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
+                      <img src="frontendAssets/images/entrees/entree2.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
                     </figure>
                 
                     <div>
@@ -1426,7 +1426,7 @@
                   <div class="menu-card hover:card">
                 
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/entrees/entree3.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
+                      <img src="frontendAssets/images/entrees/entree3.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
                     </figure>
                 
                     <div>
@@ -1459,7 +1459,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats1.jpeg" width="100" height="100" loading="lazy" alt="Spaghetti Bolognaise" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats1.jpeg" width="100" height="100" loading="lazy" alt="Spaghetti Bolognaise" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1478,7 +1478,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats2.jpeg" width="100" height="100" loading="lazy" alt="Lasagne Bolognaise" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats2.jpeg" width="100" height="100" loading="lazy" alt="Lasagne Bolognaise" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1497,7 +1497,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats3.jpeg" width="100" height="100" loading="lazy" alt="Cannelloni à la Parmesan" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats3.jpeg" width="100" height="100" loading="lazy" alt="Cannelloni à la Parmesan" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1516,7 +1516,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/plats/plats4.jpeg" width="100" height="100" loading="lazy" alt="Pizza Mozzarella" class="img-cover">
+                      <img src="frontendAssets/images/plats/plats4.jpeg" width="100" height="100" loading="lazy" alt="Pizza Mozzarella" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1545,7 +1545,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts1.jpeg" width="100" height="100" loading="lazy" alt="Tartelette" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts1.jpeg" width="100" height="100" loading="lazy" alt="Tartelette" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1564,7 +1564,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts2.jpeg" width="100" height="100" loading="lazy" alt="Salade de Fruits" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts2.jpeg" width="100" height="100" loading="lazy" alt="Salade de Fruits" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1583,7 +1583,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts3.jpeg"width="100" height="100" loading="lazy" alt="Tiramisu au Café" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts3.jpeg"width="100" height="100" loading="lazy" alt="Tiramisu au Café" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1602,7 +1602,7 @@
                 <li>
                   <div class="menu-card hover:card">
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/desserts/desserts4.jpeg" width="100" height="100" loading="lazy" alt="Panna Cotta à la Fraise" class="img-cover">
+                      <img src="frontendAssets/images/desserts/desserts4.jpeg" width="100" height="100" loading="lazy" alt="Panna Cotta à la Fraise" class="img-cover">
                     </figure>
                     <div>
                       <div class="title-wrapper">
@@ -1630,7 +1630,7 @@
                   <div class="menu-card hover:card">
     
                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="assets/images/boissons/pinte-de-biere.jpg" width="100" height="100" loading="lazy" alt="Greek Salad" class="img-cover">
+                      <img src="frontendAssets/images/boissons/pinte-de-biere.jpg" width="100" height="100" loading="lazy" alt="Greek Salad" class="img-cover">
                     </figure>
     
                     <div>
@@ -1666,9 +1666,9 @@
        
 
         
-          <img src="assets/images/shape-5.png"  width="921" height="1036" loading="lazy" alt="shape"
+          <img src="frontendAssets/images/shape-5.png"  width="921" height="1036" loading="lazy" alt="shape"
             class="shape shape-2 move-anim">
-          <img src="assets/images/shape-6.png" width="343" height="345" loading="lazy" alt="shape"
+          <img src="frontendAssets/images/shape-6.png" width="343" height="345" loading="lazy" alt="shape"
             class="shape shape-3 move-anim">
 
         </div>
@@ -1760,7 +1760,7 @@
     - custom js link
   -->
 
-  <script src="assets/js/script.js"></script>
+  <script src="frontendAssets/js/script.js"></script>
   <!-- 
     - ionicon link
   -->

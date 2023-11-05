@@ -1,0 +1,260 @@
+<?php 
+//Vérifier utilisateur connecté
+    session_start();
+    //var_dump($_SESSION);
+
+    if (isset($_SESSION['user_id']) && isset($_SESSION['user_nom']) && isset($_SESSION['user_groupe'])) {
+        // Récupérez l'ID de l'utilisateur à partir de la session
+        $userId = $_SESSION['user_id'];
+    
+        
+        // Placez ici votre code pour la connexion à la base de données
+        $db = new PDO('sqlite:db/database.db');
+    
+        // Préparez la requête de sélection en fonction de l'ID de l'utilisateur
+        $selectQuery = "SELECT id, nom, groupe_id FROM administrateurs WHERE id = :userId";
+    
+        // Préparez la requête
+        $stmt = $db->prepare($selectQuery);
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        // Récupérez l'enregistrement correspondant
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($user) {
+            // Stockez le nom et le groupe ID dans la session
+            $_SESSION['user_nom'] = $user['nom'];
+            $_SESSION['user_groupe'] = $user['groupe_id'];
+    
+        } else {
+            // L'utilisateur n'a pas été trouvé dans la table "administrateurs"
+            header('Location: login.php');
+            exit;
+        }
+    } else {
+        // L'ID de l'utilisateur n'est pas défini dans la session
+        header('Location: login.php');
+        exit;
+    }
+    
+
+?>
+<?php
+
+// Entrées
+$db = new PDO('sqlite:db/database.db');
+$selectEntreesQuery = "SELECT * FROM entrees";
+$stmt = $db->prepare($selectEntreesQuery);
+$stmt->execute();
+$entreesData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$db = null;
+
+// Plats
+$db = new PDO('sqlite:db/database.db');
+$selectPlatsQuery = "SELECT * FROM plats";
+$stmt = $db->prepare($selectPlatsQuery);
+$stmt->execute();
+$platsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$db = null;
+
+// Desserts
+$db = new PDO('sqlite:db/database.db');
+$selectDessertsQuery = "SELECT * FROM desserts";
+$stmt = $db->prepare($selectDessertsQuery);
+$stmt->execute();
+$dessertsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$db = null;
+
+// Boissons
+$db = new PDO('sqlite:db/database.db');
+$selectBoissonsQuery = "SELECT * FROM boissons";
+$stmt = $db->prepare($selectBoissonsQuery);
+$stmt->execute();
+$boissonsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$db = null;
+
+// Administrateurs
+$db = new PDO('sqlite:db/database.db');
+$selectAdminsQuery = "SELECT * FROM administrateurs";
+$stmt = $db->prepare($selectAdminsQuery);
+$stmt->execute();
+$adminsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$db = null;
+
+
+?>   
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="backendAssets/css/styles.css" rel="stylesheet" />
+</head>
+<body>
+    
+	<h1>Minicucina</h1>
+	<!-- Container -->
+	<ul id="accordion" class="accordion">
+		<!-- CHAQUE LI CORRESPOND 0 -->
+		<li>
+			<div class="link"><i class="fa fa-paint-brush"></i>Entrées<i class="fa fa-chevron-down"></i></div>
+			<ul class="submenu">
+				<?php 
+
+				// AJOUTER NOUVEAU ELEMENT
+				$typeRepasTable = "entrees";
+				$action = "ajouterRepas";
+				echo '<li><a href="#">Ajouter</a></li>';
+				echo '<div class="wrapper">
+
+					<div class="heading">
+					<h2>Mode ajout</h2>
+				
+					</div>
+
+					<form action="fonctionsCRUD.php" method="POST" class="form-example">
+							
+						<div class="input-group">
+							<input type="text" class="input-field" name="action"  value="' . $action . '" hidden>
+							<input type="text" class="input-field" name="typeRepas" value="' . $typeRepasTable . '" hidden>
+						</div>
+				
+
+						<div class="input-group">
+							<input type="text" class="input-field" name="nom" placeholder="Nom" >
+						</div>
+						
+						<div class="input-group">
+							<input type="text" class="input-field" name="description" placeholder="Description">
+						</div>
+						
+						<div class="input-group">
+							<input type="text" class="input-field" name="prix" placeholder="Prix">
+						</div>
+						';
+
+						// CASE JOUR SEMAINE FORM EDIT
+						$joursSemaine = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi'];
+
+						foreach ($joursSemaine as $jour) {
+							
+			
+							echo '<div class="jour">';
+							echo '<input type="checkbox" class="custom-checkbox" name="' . $jour . '" hidden>';
+							echo '<label for="' . $jour . '">' . ucfirst($jour) . '</label>';
+							echo '</div>';
+						}
+						
+
+						echo '
+						<div class="input-group">
+							<button type="submit">Ajouter</button>
+						</div>
+					</form>
+					
+					</div>';
+
+
+
+
+
+
+
+
+
+				/*EDITER ET BOUCLE SUR CHAQUE ELEMENT*/
+				$typeRepasTable = "entrees";
+				$action = "editerRepas";
+				foreach ($entreesData as $entree) {
+					echo '<li cla><a href="#">' . $entree['nom'] . '</a></li>';
+					echo '<div class="wrapper">
+
+					<div class="heading">
+					<h2>Mode édition</h2>
+				
+					</div>
+
+					<form action="fonctionsCRUD.php" method="POST" class="form-example">
+							
+						<div class="input-group">
+							<input type="text" class="input-field" name="action"  value="' . $action . '" hidden>
+							<input type="text" class="input-field" name="typeRepas" value="' . $typeRepasTable . '" hidden>
+							<input type="text" class="input-field" name="id" value="' . $entree['id'] . '" hidden>
+						</div>
+				
+
+						<div class="input-group">
+							<input type="text" class="input-field" name="nom" placeholder="Nom" value="' . $entree['nom'] . '">
+						</div>
+						
+						<div class="input-group">
+							<input type="text" class="input-field" name="description" placeholder="Description" value="' . $entree['description'] . '">
+						</div>
+						
+						<div class="input-group">
+							<input type="text" class="input-field" name="prix" placeholder="Prix" value="' . $entree['prix'] . '">
+						</div>
+						';
+
+						// CASE JOUR SEMAINE FORM EDIT
+						$joursSemaine = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi'];
+
+						foreach ($joursSemaine as $jour) {
+							
+							$checked = ($entree[$jour] == 1) ? 'checked' : ''; // Si $entree[$jour] vaut 1, ajoute 'checked', sinon laisse vide.
+						
+							echo '<div class="jour">';
+							echo '<input type="checkbox" class="custom-checkbox" name="' . $jour . '" hidden ' . $checked . '>';
+							echo '<label for="' . $jour . '">' . ucfirst($jour) . '</label>';
+							echo '</div>';
+						}
+						
+
+						echo '
+						<div class="input-group">
+							<button type="submit">Modifier</button>
+						</div>
+					</form>
+					
+					</div>';
+				}
+				?>
+			</ul>
+		</li>
+		<li>
+			<div class="link"><i class="fa fa-code"></i>Front-end<i class="fa fa-chevron-down"></i></div>
+			<ul class="submenu">
+				<li><a href="#">Javascript</a></li>
+				<li><a href="#">jQuery</a></li>
+				<li><a href="#">Frameworks javascript</a></li>
+			</ul>
+		</li>
+		<li>
+			<div class="link"><i class="fa fa-mobile"></i>Responsive Design<i class="fa fa-chevron-down"></i></div>
+			<ul class="submenu">
+				<li><a href="#">Tablets</a></li>
+				<li><a href="#">Mobile</a></li>
+				<li><a href="#">Media</a></li>
+				<li><a href="#">More</a></li>
+			</ul>
+		</li>
+		<li><div class="link"><i class="fa fa-globe"></i>Around the web<i class="fa fa-chevron-down"></i></div>
+			<ul class="submenu">
+				<li><a href="#">Google</a></li>
+				<li><a href="#">Bing</a></li>
+				<li><a href="#">Yahoo</a></li>
+				<li><a href="#">Other</a></li>
+			</ul>
+		</li>
+	</ul>
+
+
+
+
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="backendAssets/js/script.js" type="text/javascript"> </script> 
+</body>
+</html>
