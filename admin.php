@@ -109,11 +109,25 @@ $listeCleValeur = [
 			echo '<div class="heading">';
 			echo '<h2>Mode ajout</h2>';
 			echo '</div>';
-			echo '<form action="fonctionsCRUD.php" method="POST" class="form-example">';
+			echo '<form action="fonctionsCRUD.php" method="POST" class="form-example" enctype="multipart/form-data">';
 			echo '<div class="input-group">';
 			echo '<input type="text" class="input-field" name="action" value="' . $action . '" hidden>';
 			echo '<input type="text" class="input-field" name="typeRepas" value="' . $typeRepasTable . '" hidden>';
 			echo '</div>';
+			
+
+			// Selectionner image
+			echo '<div class="input-group">
+				<label for="image">Sélectionner une image :</label>
+				<input type="file" class="file-input" name="image" accept="image/*" onchange="previewImage(this);">
+			</div>';
+
+			// Afficher la miniature de l'image sélectionnée
+			echo '<div class="input-group">
+				<img class="image-preview" src="" alt="" style="max-width: 100px; max-height: 100px;">
+			</div>';
+
+
 			echo '<div class="input-group">';
 			echo '<input type="text" class="input-field" name="nom" placeholder="Nom">';
 			echo '</div>';
@@ -170,11 +184,14 @@ $listeCleValeur = [
 				echo '<div class="heading">';
 				echo '<h2>Mode édition</h2>';
 				echo '</div>';
-				echo '<form action="fonctionsCRUD.php" method="POST" class="form-example">';
+				echo '<form action="fonctionsCRUD.php" method="POST" class="form-example" enctype="multipart/form-data">';
 				echo '<div class="input-group">';
 				echo '<input type="text" class="input-field" name="action" value="' . $action . '" hidden>';
 				echo '<input type="text" class="input-field" name="typeRepas" value="' . $typeRepasTable . '" hidden>';
 				echo '<input type="text" class="input-field" name="id" value="' . $repas['id'] . '" hidden>';
+				echo '</div>';
+				echo '<div class="input-group">';
+				echo '<input type="text" class="input-field" name="image" placeholder="Image" value="' . $repas['nom_fichier'] . '">';
 				echo '</div>';
 				echo '<div class="input-group">';
 				echo '<input type="text" class="input-field" name="nom" placeholder="Nom" value="' . $repas['nom'] . '">';

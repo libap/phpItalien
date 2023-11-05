@@ -1,3 +1,23 @@
+function previewImage(input) {
+    console.log("Changement de fichier détecté.");
+    var previews = document.querySelectorAll(".image-preview");
+    if (input.files && input.files[0]) {
+        console.log("Fichier sélectionné :", input.files[0].name);
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            previews.forEach(function (preview) {
+                preview.src = e.target.result;
+            });
+        };
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        previews.forEach(function (preview) {
+            preview.src = "";
+        });
+    }
+}
+
+
 $(function () {
     var Accordion = function (el, multiple) {
         this.el = el || {};
@@ -60,4 +80,5 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
 

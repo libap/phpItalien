@@ -139,19 +139,104 @@ function editerUser() {
 
 function ajouterRepas() {
     // Assurez-vous de bien récupérer les valeurs du type de repas et des nouvelles données.
-    $typeRepas = $_POST['typeRepas'];
-    $newTitre = $_POST['nom'];
-    $newDescription = $_POST['description'];
-    $newPrix = $_POST['prix'];
+// Assurez-vous de bien récupérer les valeurs du type de repas et des nouvelles données.
+$typeRepas = $_POST['typeRepas'];
+$newTitre = $_POST['nom'];
+$newDescription = $_POST['description'];
+$newPrix = $_POST['prix'];
 
+// Récupérez le nom du fichier image depuis $_FILES
+$newImage = $_FILES['image']['name'];
+print_r($newImage);
+$finalNewImage = '';
+// Assurez-vous d'avoir le bon chemin vers le répertoire
+$path = 'frontendAssets/images/' . $typeRepas;
+$imageExiste = 0;
+
+// Vérifiez si le répertoire existe
+if (is_dir($path)) {
+    // Ouvrez le répertoire
+    $dir = opendir($path);
+
+    // Parcourez les fichiers du répertoire
+    while (($file = readdir($dir)) !== false) {
+        // Vérifiez si le fichier est une image (vous pouvez ajuster cette condition)
+        if (in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'gif'])) {
+            // Le fichier est une image
+            echo "Image trouvée : " . $file . "<br>";
+            if ($newImage === $file) {
+                $imageExiste = 1;
+                break;
+            }
+        }
+    }
+
+    // Fermez le répertoire
+    closedir($dir);
+
+    //  SI L IMAGE  EXISTE  DEJA DANS LE REPERTOIRE
+    if ($imageExiste === 1) {
+        $extension = pathinfo($newImage, PATHINFO_EXTENSION);
+        $nouveauNom = uniqid() . '.' . $extension;
+        $destination = $path . '/' . $nouveauNom;
+
+        // Vérifiez si le fichier image avec le nouveau nom existe déjà
+        while (file_exists($destination)) {
+            $nouveauNom = uniqid() . '.' . $extension;
+            $destination = $path . '/' . $nouveauNom;
+        }
+
+        // Téléchargez le fichier avec le nouveau nom
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
+            echo "Image téléchargée avec succès.";
+            $finalNewImage = $nouveauNom;
+
+            // Vous pouvez effectuer d'autres actions ici en cas de succès.
+        } else {
+            echo "Image doublon Erreur lors du téléchargement de l'image.";
+            // Gérez les erreurs de téléchargement ici.
+        }
+    }
+}
+
+// SI L IMAGE N EXISTE PAS DEJA DANS LE REPERTOIRE
+if ($imageExiste === 0) {
+    // Vérifiez si un fichier a été téléchargé
+    if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $tmpPath = $_FILES['image']['tmp_name'];
+        $destination = $path . '/' . $newImage;
+
+        // Téléchargez le fichier
+        if (move_uploaded_file($tmpPath, $destination)) {
+            echo "Image unique téléchargée avec succès.";
+            $finalNewImage = $newImage;
+            // Vous pouvez effectuer d'autres actions ici en cas de succès.
+        } else {
+            echo "Erreur lors du téléchargement de l'image.";
+            // Gérez les erreurs de téléchargement ici.
+        }
+    } else {
+        echo "Aucun fichier image téléchargé ou erreur de téléchargement.";
+        // Gérez le cas où aucun fichier n'a été téléchargé ou s'il y a eu une erreur.
+    }
+}
+
+
+
+
+
+
+     
     // Ouvrez la connexion à la base de données
     $db = new PDO('sqlite:db/database.db');
 
     // Préparez la requête d'insertion
-    $insertQuery = "INSERT INTO $typeRepas (nom, description, lundi, mardi, mercredi, jeudi, vendredi, prix) VALUES (:titre, :description, :lundi, :mardi, :mercredi, :jeudi, :vendredi, :prix)";
+    $insertQuery = "INSERT INTO $typeRepas (nom, description, nom_fichier, lundi, mardi, mercredi, jeudi, vendredi, prix) VALUES (:titre, :description, :nom_fichier, :lundi, :mardi, :mercredi, :jeudi, :vendredi, :prix)";
     $stmt = $db->prepare($insertQuery);
     $stmt->bindParam(':titre', $newTitre, PDO::PARAM_STR);
     $stmt->bindParam(':description', $newDescription, PDO::PARAM_STR);
+    $stmt->bindParam(':nom_fichier', $finalNewImage, PDO::PARAM_STR); // Ajoutez cette ligne pour lier le nom_fichier
+
 
     // Vous pouvez récupérer les valeurs des cases cochées ici
     $lundi = isset($_POST['lundi']) ? 1 : 0;
