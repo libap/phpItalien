@@ -1,21 +1,52 @@
+// Afficher nouvelle image  dans mode ajout 
 function previewImage(input) {
-    console.log("Changement de fichier détecté.");
-    var previews = document.querySelectorAll(".image-preview");
+    console.log("Changement de fichier détecté");
+
+    // Récupérez le data-image de l'élément input
+    var dataImage = input.getAttribute("data-image");
+
+    // Sélectionnez l'élément image avec le même data-image
+    var preview = document.querySelector('[data-image-afficher="' + dataImage + '"]');
+    console.log("Élément sélectionné : ", preview);
     if (input.files && input.files[0]) {
         console.log("Fichier sélectionné :", input.files[0].name);
         var reader = new FileReader();
         reader.onload = function (e) {
-            previews.forEach(function (preview) {
-                preview.src = e.target.result;
-            });
+            preview.src = e.target.result;
         };
         reader.readAsDataURL(input.files[0]);
     } else {
-        previews.forEach(function (preview) {
-            preview.src = "";
-        });
+        preview.src = "";
     }
 }
+
+// Afficher nouvelle image  dans mode édition 
+function previewImageEdit(input) {
+    console.log("Changement de fichier détecté (Édition)");
+
+    // Récupérez le data-image de l'élément input
+    var dataImage = input.getAttribute("data-image");
+
+    // Sélectionnez l'élément image avec le même data-image-editer
+    var preview = document.querySelector('[data-image-editer="' + dataImage + '"]');
+
+    console.log("Élément sélectionné pour l'édition : ", preview);
+
+    if (input.files && input.files[0]) {
+        console.log("Fichier sélectionné pour l'édition :", input.files[0].name);
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        preview.src = ""; // Remplacez "placeholder.jpg" par le chemin de l'image par défaut.
+    }
+}
+
+
+
+
 
 
 $(function () {
