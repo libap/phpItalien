@@ -271,11 +271,91 @@ function editerRepas() {
     $newDescription = $_POST['description'];
     $newPrix = $_POST['prix'];
 
-    // Ouvrez la connexion à la base de données
-    $db = new PDO('sqlite:db/database.db');
+    // Récupérez le nom du fichier image depuis $_FILES
+    $newImage = $_FILES['image']['name'];
+    print('        la new image apres       ');
+    print_r($newImage);
+    print('         la new image avant       ');
+    $finalNewImage = '';
+    // Assurez-vous d'avoir le bon chemin vers le répertoire
+    $path = 'frontendAssets/images/' . $typeRepas;
+    $imageExiste = 0;
 
+    // Vérifiez si le répertoire existe
+    if (is_dir($path)) {
+        // Ouvrez le répertoire
+        $dir = opendir($path);
+
+        // Parcourez les fichiers du répertoire
+        while (($file = readdir($dir)) !== false) {
+            // Vérifiez si le fichier est une image (vous pouvez ajuster cette condition)
+            if (in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'gif'])) {
+                // Le fichier est une image
+                echo "Image trouvée : " . $file . "<br>";
+                if ($newImage === $file) {
+                    $imageExiste = 1;
+                    break;
+                }
+            }
+        }
+
+        // Fermez le répertoire
+        closedir($dir);
+
+        //  SI L IMAGE  EXISTE  DEJA DANS LE REPERTOIRE
+        if ($imageExiste === 1) {
+            $extension = pathinfo($newImage, PATHINFO_EXTENSION);
+            $nouveauNom = uniqid() . '.' . $extension;
+            $destination = $path . '/' . $nouveauNom;
+
+            // Vérifiez si le fichier image avec le nouveau nom existe déjà
+            while (file_exists($destination)) {
+                $nouveauNom = uniqid() . '.' . $extension;
+                $destination = $path . '/' . $nouveauNom;
+            }
+
+            // Téléchargez le fichier avec le nouveau nom
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
+                echo "Image téléchargée avec succès.";
+                $finalNewImage = $nouveauNom;
+
+                // Vous pouvez effectuer d'autres actions ici en cas de succès.
+            } else {
+                echo "Image doublon Erreur lors du téléchargement de l'image.";
+                // Gérez les erreurs de téléchargement ici.
+            }
+        }
+    }
+
+    // SI L IMAGE N EXISTE PAS DEJA DANS LE REPERTOIRE
+    if ($imageExiste === 0) {
+        // Vérifiez si un fichier a été téléchargé
+        if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $tmpPath = $_FILES['image']['tmp_name'];
+            $destination = $path . '/' . $newImage;
+
+            // Téléchargez le fichier
+            if (move_uploaded_file($tmpPath, $destination)) {
+                echo "Image unique téléchargée avec succès.";
+                $finalNewImage = $newImage;
+                // Vous pouvez effectuer d'autres actions ici en cas de succès.
+            } else {
+                echo "Erreur lors du téléchargement de l'image.";
+                // Gérez les erreurs de téléchargement ici.
+            }
+        } else {
+            echo "Aucun fichier image téléchargé ou erreur de téléchargement.";
+            // Gérez le cas où aucun fichier n'a été téléchargé ou s'il y a eu une erreur.
+        }
+    }
+
+    $db = new PDO('sqlite:db/database.db');
     // Préparez la requête de mise à jour
-    $updateQuery = "UPDATE $typeRepas SET  nom = :titre, description = :description, lundi = :lundi, mardi = :mardi, mercredi = :mercredi, jeudi = :jeudi, vendredi = :vendredi, prix = :prix WHERE id = :id";
+    $updateQuery = "UPDATE $typeRepas SET nom = :titre, description = :description, lundi = :lundi, mardi = :mardi, mercredi = :mercredi, jeudi = :jeudi, vendredi = :vendredi, prix = :prix";
+    if (!empty($finalNewImage)) {
+        $updateQuery .= ", nom_fichier = :nom_fichier";
+    }
+    $updateQuery .= " WHERE id = :id";
     $stmt = $db->prepare($updateQuery);
     $stmt->bindParam(':id', $entryId, PDO::PARAM_INT);
     $stmt->bindParam(':titre', $newTitre, PDO::PARAM_STR);
@@ -293,9 +373,13 @@ function editerRepas() {
     $stmt->bindParam(':mercredi', $mercredi, PDO::PARAM_INT);
     $stmt->bindParam(':jeudi', $jeudi, PDO::PARAM_INT);
     $stmt->bindParam(':vendredi', $vendredi, PDO::PARAM_INT);
-    
+
     // Assurez-vous de définir $newPrix correctement
     $stmt->bindParam(':prix', $newPrix, PDO::PARAM_STR);
+
+    if (!empty($finalNewImage)) {
+        $stmt->bindParam(':nom_fichier', $finalNewImage, PDO::PARAM_STR);
+    }
 
     if ($stmt->execute()) {
         header("Location: admin.php");
@@ -303,6 +387,8 @@ function editerRepas() {
     } else {
         echo "Erreur lors de la mise à jour.";
     }
+
+    
 }
 
 
