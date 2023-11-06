@@ -302,4 +302,31 @@ h1 {
 		flex: 1;
    }
    
-   
+   /*Upload btn*/
+   [type="file"] {
+	/* Style the color of the message that says 'No file chosen' */
+	  color: #878787;
+	}
+	[type="file"]::-webkit-file-upload-button {
+	  background: #31285C;
+	  border: 2px solid #31285C;
+	  border-radius: 4px;
+	  color: #fff;
+	  cursor: pointer;
+	  font-size: 12px;
+	  outline: none;
+	  padding: 8px 20px;
+	  text-transform: uppercase;
+	  transition: all 1s ease;
+	}
+	
+	[type="file"]::-webkit-file-upload-button:hover {
+	  background: #fff;
+	  border: 2px solid #535353;
+	  color: #000;
+	}
+
+	textarea{
+		height: 140px !important;
+	}
+	/*Petite image qui s'affiche dynamiquement*/
