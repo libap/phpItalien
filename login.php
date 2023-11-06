@@ -3,26 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="backendAssets/css/stylesLogin.css" rel="stylesheet" />
     <title>Formulaire de Connexion</title>
 </head>
 <body>
-    <h2>Connexion</h2>
-    <form action="login.php" method="POST">
-    <div>
-        <label for="identifiant">Identifiant :</label>
-        <input type="text" id="identifiant" name="identifiant" required>
+    <div class="container">
+        <form action="login.php" method="POST">
+            <h2>Connexion</h2>
+            <div class="input-container">
+                <label for="identifiant">Identifiant :</label>
+                <input type="text" id="identifiant" name="identifiant" required>
+            </div>
+            <div class="input-container">
+                <label for="mot_de_passe">Mot de passe :</label>
+                <input type="password" id="mot_de_passe" name="mot_de_passe" required>
+            </div>
+            <div class="button-container">
+                <button type="submit">Se Connecter</button>
+            </div>
+        </form>
     </div>
-    <div>
-        <label for="mot_de_passe">Mot de passe :</label>
-        <input type="password" id="mot_de_passe" name="mot_de_passe" required>
-    </div>
-    <div>
-        <button type="submit">Se Connecter</button>
-    </div>
-</form>
-
 </body>
 </html>
+
 <?php
 //GERER LA CONNEXION ICI
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['identifiant']) && isset($_POST['mot_de_passe'])) {
@@ -70,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['identifiant']) && iss
 } else {
     // Redirigez vers la page de connexion si le formulaire n'a pas été soumis
     //header('Location: login.php');
-    echo "Première condition failed";
+    //echo "Première condition failed";
     exit;
 }
 ?>
