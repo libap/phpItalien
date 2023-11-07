@@ -330,3 +330,9 @@ h1 {
 		height: 140px !important;
 	}
 	/*Petite image qui s'affiche dynamiquement*/
+	.AffichageRapideImg{
+		display: flex;
+		margin: 20px;
+		justify-content: center;
+		align-items: center;
+	}

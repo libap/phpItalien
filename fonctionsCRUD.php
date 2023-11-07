@@ -44,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
 // Définissez vos fonctions de traitement pour chaque formulaire
 function supprimerUser() {
+    print_r($_POST['id']);
     if (isset($_POST['id'])) {
         $adminId = $_POST['id'];
 
@@ -96,7 +97,7 @@ function ajouterUser() {
 function editerUser() {
     $adminId = $_POST['id'];
     $newPseudo = $_POST['pseudo'];
-    
+
     $db = new PDO('sqlite:db/database.db');
 
     // Préparez la requête de mise à jour
@@ -118,8 +119,7 @@ function editerUser() {
     $stmt->bindParam(':pseudo', $newPseudo, PDO::PARAM_STR);
     
     // Récupérez le nom de la case à cocher en fonction de la valeur d'ID
-    $checkboxName = 'id-' . $adminId;
-    $groupe_id = isset($_POST[$checkboxName]) ? 1 : 0;
+    $groupe_id = isset($_POST['SuperUser']) ? 1 : 0;
     
     $stmt->bindParam(':groupe_id', $groupe_id, PDO::PARAM_INT);
 
@@ -262,7 +262,6 @@ function ajouterRepas() {
     }
 }
 
-
 function editerRepas() {
     // Assurez-vous de bien récupérer les valeurs de l'ID, du type de repas et des nouvelles données.
     $entryId = $_POST['id'];
@@ -390,7 +389,6 @@ function editerRepas() {
 
     
 }
-
 
 function supprimerRepas() {
     if (isset($_POST['id']) && isset($_POST['typeRepas'])) {

@@ -46,6 +46,12 @@
 $db = new PDO('sqlite:db/database.db');
 
 // Sélectionnez toutes les données pour les entrées
+$selectAdminQuery = "SELECT * FROM administrateurs";
+$stmt = $db->prepare($selectAdminQuery);
+$stmt->execute();
+$adminData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Sélectionnez toutes les données pour les entrées
 $selectEntreesQuery = "SELECT * FROM entrees";
 $stmt = $db->prepare($selectEntreesQuery);
 $stmt->execute();
@@ -80,6 +86,10 @@ $listeCleValeur = [
     'boissons' => $boissonsData
 ];
 
+$listeCleValeurAdmin = [
+    'administrateurs' => $adminData
+];
+
 
 
 
@@ -95,8 +105,120 @@ $listeCleValeur = [
 	<h1>Minicucina</h1>
 	<!-- Container -->
 	<ul id="accordion" class="accordion">
+		
 		<?php
+
+
+		foreach ($listeCleValeurAdmin as $cle => $valeur) {
+			echo '<li>';
+			echo '<div class="link"><i class="fa fa-paint-brush"></i>' . ucfirst($cle) . '<i class="fa fa-chevron-down"></i></div>';
+			echo '<ul class="submenu">';
+
+			// AJOUTER NOUVEAU ADMIN
+			$typeAdminTable = $cle;
+			$actionAjouterAdmin = "ajouterUser";
+
+			echo '<li><a href="#">Ajouter</a></li>';
+			echo '<div class="wrapper">';
+			echo '<div class="heading">';
+			echo '<h2>Mode ajout</h2>';
+			echo '</div>';
+			echo '<form action="fonctionsCRUD.php" method="POST" class="form-example">';
+			echo '<div class="input-group">';
+			echo '<input type="text" class="input-field" name="action" value="' . $actionAjouterAdmin . '" hidden>';
+			echo '<input type="text" class="input-field" name="typeAdmin" value="' . $typeAdminTable . '" hidden>';
+			echo '</div>';
+
+			echo '<div class="input-group">';
+			echo '<input type="text" class="input-field" name="pseudo" placeholder="Pseudo">';
+			echo '</div>';
+			echo '<div class="input-group">';
+			echo '<input type="password" class="input-field" name="mot_de_passe" placeholder="Mot de passe">';
+			echo '</div>';
+
+	
+
+			echo '<div class="jour">';
+			echo '<input type="checkbox"  class="custom-checkbox" name="SuperUser">';
+			echo '<label for="SuperUser">SuperUser</label>';
+			echo '</div>';
+
+			echo '<div class="input-group">';
+			echo '<button class="BTNajouterEditer" type="submit">Ajouter</button>';
+			echo '</div>';
+			echo '</form>';
+			echo '</div>';
+
+			/* ÉDITER ET BOUCLER SUR CHAQUE ADMIN */
+			$typeAdminTable = $cle;
+			$actionEditerAdmin = "editerUser";
+			$actionSupprimerAdmin = "supprimerUser";
+
+			foreach ($valeur as $admin) {
+				/* POPUP POUR SUPPRIMER SUR CHAQUE ÉLÉMENT */
+				echo '<div class="popup" data-id="' . $admin['id'] . '-' . $cle . '" style="display: none;">
+				<p>Êtes-vous sûr de vouloir supprimer ' . $admin['nom'] . ' ?</p>
+					<div class="button-container">
+						<form action="fonctionsCRUD.php" method="POST">
+							<input type="hidden" name="action" value="supprimerUser">
+							<input type="hidden" name="id" value="' . $admin['id'] . '">
+							<input type="hidden" name="typeRepas" value="' . $cle . '">
+							<button type="submit" class="popup-button-oui">Oui</button>
+						</form>
+						<button class="popup-button-non" data-id="' . $admin['id'] . '-' . $cle . '">Non</button>
+					</div>
+				</div>';
+
+				// Vous pouvez ajouter ici la structure pour éditer et supprimer chaque admin, similaire à celle des repas.
+
+				echo '<li><a href="#">' . $admin['nom'] . '</a><p data-id="' . $admin['id'] . '-' . $cle . '" class="iconePoubelle">🗑️</p></li>';
+				echo '<div class="wrapper">';
+				echo '<div class="heading">';
+				echo '<h2>Mode édition</h2>';
+				echo '</div>';
+
+				echo '<form action="fonctionsCRUD.php" method="POST" class="form-example">';
+				echo '<div class="input-group">';
+				echo '<input type="text" class="input-field" name="action" value="' . $actionEditerAdmin . '" hidden>';
+				echo '<input type="text" class="input-field" name="typeAdmin" value="' . $typeAdminTable . '" hidden>';
+				echo '<input type="text" class="input-field" name="id" value="' . $admin['id'] . '" hidden>';
+				echo '</div>';
+
+				// Structure pour éditer l'admin
+				echo '<div class="input-group">';
+				echo '<input type="text" class="input-field" name="pseudo" placeholder="Pseudo" value="' . $admin['nom'] . '">';
+				echo '</div>';
+				echo '<div class="input-group">';
+				echo '<input type="password" class="input-field" name="mot_de_passe" placeholder="Mot de passe">';
+				echo '</div>';
+				echo '<div class="jour">';
+				echo '<input type="checkbox" class="custom-checkbox" name="SuperUser" ' . ($admin['groupe_id'] == 1 ? 'checked' : '') . '>';
+				echo '<label for="SuperUser">SuperUser</label>';
+				echo '</div>';
+				
+
+				echo '<div class="input-group">';
+				echo '<button class="BTNajouterEditer" type="submit">Modifier</button>';
+				echo '</div>';
+				echo '</form>';
+				echo '</div>';
+				
+
+			}
+
+			echo '</ul>';
+			echo '</li>';
+		}
+		?>
+
+		
+		
+
+		<?php
+		/* AFFICHAGE DES REPAS  */
 		foreach ($listeCleValeur as $cle => $valeur) {
+
+			
 			echo '<li>';
 			echo '<div class="link"><i class="fa fa-paint-brush"></i>' . ucfirst($cle) . '<i class="fa fa-chevron-down"></i></div>';
 			echo '<ul class="submenu">';
