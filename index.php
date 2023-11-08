@@ -386,7 +386,8 @@
 
             echo '<h1 class="section-subtitle text-center" id="alacarte">À LA CARTE</h1>';
             foreach ($joursSemaine as $jour){
-              echo'  <h2 class="headline-1 section-title text-center">'.$jour.'</h2>';
+              $jourMajuscule = mb_convert_case($jour, MB_CASE_UPPER, 'UTF-8');
+              echo'  <h2 class="headline-1 section-title text-center">'.$jourMajuscule.'</h2>';
               foreach ($listeCleValeur as $cle => $valeur){
                 echo '<p class="section-subtitle text-center label-2">'.$cle.'</p>';
                 echo '<ul class="grid-list">';
@@ -396,7 +397,7 @@
                       <div class="menu-card hover:card">
                     
                         <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                          <img src="frontendAssets/images/'. $cle . '/'. $repas['nom_fichier'] . '" width="100px" height="100px" loading="lazy" alt="Entrée italienne" class="img-cover">
+                          <img src="frontendAssets/images/'. $cle . '/'. $repas['nom_fichier'] . '" width="100px" height="100px" loading="lazy" alt="Entrée italienne" class="img-cover-carte">
                         </figure>
                     
                         <div>
@@ -426,6 +427,7 @@
               }
               
             }
+      
           
           ?>
 

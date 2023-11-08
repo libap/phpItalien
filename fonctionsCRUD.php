@@ -176,27 +176,51 @@ function ajouterRepas() {
 
         //  SI L IMAGE  EXISTE  DEJA DANS LE REPERTOIRE
         if ($imageExiste === 1) {
-            $extension = pathinfo($newImage, PATHINFO_EXTENSION);
+            $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
             $nouveauNom = uniqid() . '.' . $extension;
             $destination = $path . '/' . $nouveauNom;
-
+        
             // Vérifiez si le fichier image avec le nouveau nom existe déjà
             while (file_exists($destination)) {
                 $nouveauNom = uniqid() . '.' . $extension;
                 $destination = $path . '/' . $nouveauNom;
             }
-
+        
             // Téléchargez le fichier avec le nouveau nom
             if (move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
                 echo "Image téléchargée avec succès.";
-                $finalNewImage = $nouveauNom;
-
+        
+                // Redimensionnez l'image à 100x100 pixels tout en conservant ses proportions
+                $image = imagecreatefromstring(file_get_contents($destination));
+                $nouvelleLargeur = 100;
+                $nouvelleHauteur = 100;
+                list($largeur, $hauteur) = getimagesize($destination);
+        
+                $nouvelleImage = imagecreatetruecolor($nouvelleLargeur, $nouvelleHauteur);
+        
+                imagecopyresampled(
+                    $nouvelleImage,
+                    $image,
+                    0,
+                    0,
+                    0,
+                    0,
+                    $nouvelleLargeur,
+                    $nouvelleHauteur,
+                    $largeur,
+                    $hauteur
+                );
+        
+                // Sauvegardez l'image redimensionnée
+                imagejpeg($nouvelleImage, $destination);
+        
                 // Vous pouvez effectuer d'autres actions ici en cas de succès.
             } else {
                 echo "Image doublon Erreur lors du téléchargement de l'image.";
                 // Gérez les erreurs de téléchargement ici.
             }
         }
+        
     }
 
     // SI L IMAGE N EXISTE PAS DEJA DANS LE REPERTOIRE
