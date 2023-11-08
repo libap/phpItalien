@@ -348,11 +348,95 @@
 
             <section class="section menu" aria-label="menu-label" id="menu">
         <div class="container">
+          <?php 
+                  // Ouvrez la connexion à la base de données
+            $db = new PDO('sqlite:db/database.db');
 
-          <h1 class="section-subtitle text-center" id="alacarte">À LA CARTE</h1>
+            // Sélectionnez toutes les données pour les entrées
+            $selectEntreesQuery = "SELECT * FROM entrees";
+            $stmt = $db->prepare($selectEntreesQuery);
+            $stmt->execute();
+            $entreesData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // Sélectionnez toutes les données pour les plats
+            $selectPlatsQuery = "SELECT * FROM plats";
+            $stmt = $db->prepare($selectPlatsQuery);
+            $stmt->execute();
+            $platsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // Sélectionnez toutes les données pour les desserts
+            $selectDessertsQuery = "SELECT * FROM desserts";
+            $stmt = $db->prepare($selectDessertsQuery);
+            $stmt->execute();
+            $dessertsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
-  
+
+            // Fermez la connexion à la base de données
+            $db = null;
+
+            // Créez une liste clé-valeur avec les données
+            $listeCleValeur = [
+                'entrees' => $entreesData,
+                'plats' => $platsData,
+                'desserts' => $dessertsData
+            ];
+            $joursSemaine = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi'];
+          
+
+            echo '<h1 class="section-subtitle text-center" id="alacarte">À LA CARTE</h1>';
+            foreach ($joursSemaine as $jour){
+              echo'  <h2 class="headline-1 section-title text-center">'.$jour.'</h2>';
+              foreach ($listeCleValeur as $cle => $valeur){
+                echo '<p class="section-subtitle text-center label-2">'.$cle.'</p>';
+                echo '<ul class="grid-list">';
+                foreach ($valeur as $repas){
+                  if ($repas[$jour] == 1){
+                      echo '<li>
+                      <div class="menu-card hover:card">
+                    
+                        <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
+                          <img src="frontendAssets/images/'. $cle . '/'. $repas['nom_fichier'] . '" width="100px" height="100px" loading="lazy" alt="Entrée italienne" class="img-cover">
+                        </figure>
+                    
+                        <div>
+                    
+                          <div class="title-wrapper">
+                            <h3 class="title-3">
+                              <a href="#" class="card-title">'.$repas['nom'].'</a>
+                            </h3>
+                    
+                            <span class="badge label-1"></span>
+                    
+                            <span class="span title-2">'.$repas['prix'].' €</span>
+                          </div>
+                    
+                          <p class="card-text label-1">
+                          '.$repas['description'].'
+                          </p>
+                    
+                        </div>
+                    
+                      </div>
+                    </li>';
+                    }
+
+                  }
+                echo '</ul>';
+              }
+              
+            }
+          
+          ?>
+
+
+
+
+
+
+
+
+
           <h2 class="headline-1 section-title text-center">LUNDI</h2>
         
 
@@ -386,36 +470,7 @@
                 
                   </div>
                 </li>
-                <li>
-                  <div class="menu-card hover:card">
-                
-                    <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="frontendAssets/images/entrees/entree3.jpeg" width="100" height="100" loading="lazy" alt="Entrée italienne" class="img-cover">
-                    </figure>
-                
-                    <div>
-                
-                      <div class="title-wrapper">
-                        <h3 class="title-3">
-                          <a href="#" class="card-title">Salade végétarienne</a>
-                        </h3>
-                
-                        <span class="badge label-1"></span>
-                
-                        <span class="span title-2">3,50 €</span>
-                      </div>
-                
-                      <p class="card-text label-1">
-                        Tomates, radis, salade, croûtons 
-                      </p>
-                
-                    </div>
-                
-                  </div>
-                </li>
-                
- 
-           
+
               </ul>
 
               <p class="section-subtitle text-center label-2">PLATS</p>
@@ -439,67 +494,7 @@
                     </div>
                   </div>
                 </li>
-                <li>
-                  <div class="menu-card hover:card">
-                    <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="frontendAssets/images/plats/plats2.jpeg" width="100" height="100" loading="lazy" alt="Lasagne Bolognaise" class="img-cover">
-                    </figure>
-                    <div>
-                      <div class="title-wrapper">
-                        <h3 class="title-3">
-                          <a href="#" class="card-title">Lasagne Bolognaise</a>
-                        </h3>
-                        <span class="badge label-1"></span>
-                        <span class="span title-2">6,50 €</span>
-                      </div>
-                      <p class="card-text label-1">
-                        Couches de pâtes, sauce bolognaise, fromage
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="menu-card hover:card">
-                    <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="frontendAssets/images/plats/plats3.jpeg" width="100" height="100" loading="lazy" alt="Cannelloni à la Parmesan" class="img-cover">
-                    </figure>
-                    <div>
-                      <div class="title-wrapper">
-                        <h3 class="title-3">
-                          <a href="#" class="card-title">Cannelloni à la Parmesan</a>
-                        </h3>
-                        <span class="badge label-1"></span>
-                        <span class="span title-2">7,00 €</span>
-                      </div>
-                      <p class="card-text label-1">
-                        Cannelloni farcis, sauce parmesan, fromage
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="menu-card hover:card">
-                    <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="frontendAssets/images/plats/plats4.jpeg" width="100" height="100" loading="lazy" alt="Pizza Mozzarella" class="img-cover">
-                    </figure>
-                    <div>
-                      <div class="title-wrapper">
-                        <h3 class="title-3">
-                          <a href="#" class="card-title">Pizza Mozzarella</a>
-                        </h3>
-                        <span class="badge label-1"></span>
-                        <span class="span title-2">10,00 €</span>
-                      </div>
-                      <p class="card-text label-1">
-                        Mozzarella, sauce tomate, pâte à pizza italienne
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                
-                
- 
-           
+    
               </ul>
 
               <p class="section-subtitle text-center label-2">DESSERTS</p>
@@ -525,63 +520,7 @@
                     </div>
                   </div>
                 </li>
-                <li>
-                  <div class="menu-card hover:card">
-                    <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="frontendAssets/images/desserts/desserts2.jpeg" width="100" height="100" loading="lazy" alt="Salade de Fruits" class="img-cover">
-                    </figure>
-                    <div>
-                      <div class="title-wrapper">
-                        <h3 class="title-3">
-                          <a href="#" class="card-title">Salade de Fruits</a>
-                        </h3>
-                        <span class="badge label-1"></span>
-                        <span class="span title-2">2,00 €</span>
-                      </div>
-                      <p class="card-text label-1">
-                        Mélange de fruits frais
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="menu-card hover:card">
-                    <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="frontendAssets/images/desserts/desserts3.jpeg"width="100" height="100" loading="lazy" alt="Tiramisu au Café" class="img-cover">
-                    </figure>
-                    <div>
-                      <div class="title-wrapper">
-                        <h3 class="title-3">
-                          <a href="#" class="card-title">Tiramisu au Café</a>
-                        </h3>
-                        <span class="badge label-1"></span>
-                        <span class="span title-2">3,00 €</span>
-                      </div>
-                      <p class="card-text label-1">
-                        Tiramisu à la saveur riche du café
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="menu-card hover:card">
-                    <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                      <img src="frontendAssets/images/desserts/desserts4.jpeg" width="100" height="100" loading="lazy" alt="Panna Cotta à la Fraise" class="img-cover">
-                    </figure>
-                    <div>
-                      <div class="title-wrapper">
-                        <h3 class="title-3">
-                          <a href="#" class="card-title">Panna Cotta à la Fraise</a>
-                        </h3>
-                        <span class="badge label-1"></span>
-                        <span class="span title-2">3,00 €</span>
-                      </div>
-                      <p class="card-text label-1">
-                        Panna Cotta garnie de coulis de fraise
-                      </p>
-                    </div>
-                  </div>
-                </li>
+
               </ul>
           
 
