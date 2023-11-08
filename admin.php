@@ -40,6 +40,8 @@
     
 
 ?>
+	
+
 <?php
 
 // Ouvrez la connexion à la base de données
@@ -101,114 +103,133 @@ $listeCleValeurAdmin = [
 	<link href="backendAssets/css/styles.css" rel="stylesheet" />
 </head>
 <body>
+	<form class="deconnexion" method="post">
+		<button type="submit" name="deconnexion">Déconnexion</button>
+	</form>
+
+	<?php
+		// Code PHP pour gérer la déconnexion
+		if (isset($_POST['deconnexion'])) {
+			// Détruisez la session en cours
+			session_unset();
+			session_destroy();
+
+			// Redirigez l'utilisateur vers une page de connexion (par exemple, "login.php")
+			header("Location: login.php");
+			exit;
+		}
+	?>
     
 	<h1>Minicucina</h1>
+
 	<!-- Container -->
 	<ul id="accordion" class="accordion">
-		
-		<?php
-
-
-		foreach ($listeCleValeurAdmin as $cle => $valeur) {
-			echo '<li>';
-			echo '<div class="link"><i class="fa fa-paint-brush"></i>' . ucfirst($cle) . '<i class="fa fa-chevron-down"></i></div>';
-			echo '<ul class="submenu">';
-
-			// AJOUTER NOUVEAU ADMIN
-			$typeAdminTable = $cle;
-			$actionAjouterAdmin = "ajouterUser";
-
-			echo '<li><a href="#">Ajouter</a></li>';
-			echo '<div class="wrapper">';
-			echo '<div class="heading">';
-			echo '<h2>Mode ajout</h2>';
-			echo '</div>';
-			echo '<form action="fonctionsCRUD.php" method="POST" class="form-example">';
-			echo '<div class="input-group">';
-			echo '<input type="text" class="input-field" name="action" value="' . $actionAjouterAdmin . '" hidden>';
-			echo '<input type="text" class="input-field" name="typeAdmin" value="' . $typeAdminTable . '" hidden>';
-			echo '</div>';
-
-			echo '<div class="input-group">';
-			echo '<input type="text" class="input-field" name="pseudo" placeholder="Pseudo">';
-			echo '</div>';
-			echo '<div class="input-group">';
-			echo '<input type="password" class="input-field" name="mot_de_passe" placeholder="Mot de passe">';
-			echo '</div>';
-
 	
+		<?php
+			if ($_SESSION['user_groupe'] == 1){
 
-			echo '<div class="jour">';
-			echo '<input type="checkbox"  class="custom-checkbox" name="SuperUser">';
-			echo '<label for="SuperUser">SuperUser</label>';
-			echo '</div>';
+				foreach ($listeCleValeurAdmin as $cle => $valeur) {
+					echo '<li>';
+					echo '<div class="link"><i class="fa fa-paint-brush"></i>' . ucfirst($cle) . '<i class="fa fa-chevron-down"></i></div>';
+					echo '<ul class="submenu">';
 
-			echo '<div class="input-group">';
-			echo '<button class="BTNajouterEditer" type="submit">Ajouter</button>';
-			echo '</div>';
-			echo '</form>';
-			echo '</div>';
+					// AJOUTER NOUVEAU ADMIN
+					$typeAdminTable = $cle;
+					$actionAjouterAdmin = "ajouterUser";
 
-			/* ÉDITER ET BOUCLER SUR CHAQUE ADMIN */
-			$typeAdminTable = $cle;
-			$actionEditerAdmin = "editerUser";
-			$actionSupprimerAdmin = "supprimerUser";
+					echo '<li><a href="#">Ajouter</a></li>';
+					echo '<div class="wrapper">';
+					echo '<div class="heading">';
+					echo '<h2>Mode ajout</h2>';
+					echo '</div>';
+					echo '<form action="fonctionsCRUD.php" method="POST" class="form-example">';
+					echo '<div class="input-group">';
+					echo '<input type="text" class="input-field" name="action" value="' . $actionAjouterAdmin . '" hidden>';
+					echo '<input type="text" class="input-field" name="typeAdmin" value="' . $typeAdminTable . '" hidden>';
+					echo '</div>';
 
-			foreach ($valeur as $admin) {
-				/* POPUP POUR SUPPRIMER SUR CHAQUE ÉLÉMENT */
-				echo '<div class="popup" data-id="' . $admin['id'] . '-' . $cle . '" style="display: none;">
-				<p>Êtes-vous sûr de vouloir supprimer ' . $admin['nom'] . ' ?</p>
-					<div class="button-container">
-						<form action="fonctionsCRUD.php" method="POST">
-							<input type="hidden" name="action" value="supprimerUser">
-							<input type="hidden" name="id" value="' . $admin['id'] . '">
-							<input type="hidden" name="typeRepas" value="' . $cle . '">
-							<button type="submit" class="popup-button-oui">Oui</button>
-						</form>
-						<button class="popup-button-non" data-id="' . $admin['id'] . '-' . $cle . '">Non</button>
-					</div>
-				</div>';
+					echo '<div class="input-group">';
+					echo '<input type="text" class="input-field" name="pseudo" placeholder="Pseudo">';
+					echo '</div>';
+					echo '<div class="input-group">';
+					echo '<input type="password" class="input-field" name="mot_de_passe" placeholder="Mot de passe">';
+					echo '</div>';
 
-				// Vous pouvez ajouter ici la structure pour éditer et supprimer chaque admin, similaire à celle des repas.
+			
 
-				echo '<li><a href="#">' . $admin['nom'] . '</a><p data-id="' . $admin['id'] . '-' . $cle . '" class="iconePoubelle">🗑️</p></li>';
-				echo '<div class="wrapper">';
-				echo '<div class="heading">';
-				echo '<h2>Mode édition</h2>';
-				echo '</div>';
+					echo '<div class="jour">';
+					echo '<input type="checkbox"  class="custom-checkbox" name="SuperUser">';
+					echo '<label for="SuperUser">SuperUser</label>';
+					echo '</div>';
 
-				echo '<form action="fonctionsCRUD.php" method="POST" class="form-example">';
-				echo '<div class="input-group">';
-				echo '<input type="text" class="input-field" name="action" value="' . $actionEditerAdmin . '" hidden>';
-				echo '<input type="text" class="input-field" name="typeAdmin" value="' . $typeAdminTable . '" hidden>';
-				echo '<input type="text" class="input-field" name="id" value="' . $admin['id'] . '" hidden>';
-				echo '</div>';
+					echo '<div class="input-group">';
+					echo '<button class="BTNajouterEditer" type="submit">Ajouter</button>';
+					echo '</div>';
+					echo '</form>';
+					echo '</div>';
 
-				// Structure pour éditer l'admin
-				echo '<div class="input-group">';
-				echo '<input type="text" class="input-field" name="pseudo" placeholder="Pseudo" value="' . $admin['nom'] . '">';
-				echo '</div>';
-				echo '<div class="input-group">';
-				echo '<input type="password" class="input-field" name="mot_de_passe" placeholder="Mot de passe">';
-				echo '</div>';
-				echo '<div class="jour">';
-				echo '<input type="checkbox" class="custom-checkbox" name="SuperUser" ' . ($admin['groupe_id'] == 1 ? 'checked' : '') . '>';
-				echo '<label for="SuperUser">SuperUser</label>';
-				echo '</div>';
-				
+					/* ÉDITER ET BOUCLER SUR CHAQUE ADMIN */
+					$typeAdminTable = $cle;
+					$actionEditerAdmin = "editerUser";
+					$actionSupprimerAdmin = "supprimerUser";
 
-				echo '<div class="input-group">';
-				echo '<button class="BTNajouterEditer" type="submit">Modifier</button>';
-				echo '</div>';
-				echo '</form>';
-				echo '</div>';
-				
+					foreach ($valeur as $admin) {
+						/* POPUP POUR SUPPRIMER SUR CHAQUE ÉLÉMENT */
+						echo '<div class="popup" data-id="' . $admin['id'] . '-' . $cle . '" style="display: none;">
+						<p>Êtes-vous sûr de vouloir supprimer ' . $admin['nom'] . ' ?</p>
+							<div class="button-container">
+								<form action="fonctionsCRUD.php" method="POST">
+									<input type="hidden" name="action" value="supprimerUser">
+									<input type="hidden" name="id" value="' . $admin['id'] . '">
+									<input type="hidden" name="typeRepas" value="' . $cle . '">
+									<button type="submit" class="popup-button-oui">Oui</button>
+								</form>
+								<button class="popup-button-non" data-id="' . $admin['id'] . '-' . $cle . '">Non</button>
+							</div>
+						</div>';
+
+						// Vous pouvez ajouter ici la structure pour éditer et supprimer chaque admin, similaire à celle des repas.
+
+						echo '<li><a href="#">' . $admin['nom'] . '</a><p data-id="' . $admin['id'] . '-' . $cle . '" class="iconePoubelle">🗑️</p></li>';
+						echo '<div class="wrapper">';
+						echo '<div class="heading">';
+						echo '<h2>Mode édition</h2>';
+						echo '</div>';
+
+						echo '<form action="fonctionsCRUD.php" method="POST" class="form-example">';
+						echo '<div class="input-group">';
+						echo '<input type="text" class="input-field" name="action" value="' . $actionEditerAdmin . '" hidden>';
+						echo '<input type="text" class="input-field" name="typeAdmin" value="' . $typeAdminTable . '" hidden>';
+						echo '<input type="text" class="input-field" name="id" value="' . $admin['id'] . '" hidden>';
+						echo '</div>';
+
+						// Structure pour éditer l'admin
+						echo '<div class="input-group">';
+						echo '<input type="text" class="input-field" name="pseudo" placeholder="Pseudo" value="' . $admin['nom'] . '">';
+						echo '</div>';
+						echo '<div class="input-group">';
+						echo '<input type="password" class="input-field" name="mot_de_passe" placeholder="Mot de passe">';
+						echo '</div>';
+						echo '<div class="jour">';
+						echo '<input type="checkbox" class="custom-checkbox" name="SuperUser" ' . ($admin['groupe_id'] == 1 ? 'checked' : '') . '>';
+						echo '<label for="SuperUser">SuperUser</label>';
+						echo '</div>';
+						
+
+						echo '<div class="input-group">';
+						echo '<button class="BTNajouterEditer" type="submit">Modifier</button>';
+						echo '</div>';
+						echo '</form>';
+						echo '</div>';
+						
+
+					}
+
+					echo '</ul>';
+					echo '</li>';
+				}
 
 			}
-
-			echo '</ul>';
-			echo '</li>';
-		}
 		?>
 
 		
@@ -287,6 +308,7 @@ $listeCleValeurAdmin = [
 						<form action="fonctionsCRUD.php" method="POST">
 							<input type="hidden" name="action" value="supprimerRepas">
 							<input type="hidden" name="id" value="' . $repas['id'] . '">
+							<input type="hidden" name="image" value="' . $repas['nom_fichier'] . '">
 							<input type="hidden" name="typeRepas" value="' . $typeRepasTable . '">
 							<button type="submit" class="popup-button-oui">Oui</button>
 						</form>
@@ -314,12 +336,12 @@ $listeCleValeurAdmin = [
 
 				// Selectionner image
 				echo '<div class="input-group">
-					<input type="file" data-image="' . $cle . '-EditerImage" class="file-input" name="image" accept="image/*" onchange="previewImageEdit(this);">
+					<input type="file" data-image="' . $repas['id'] . '-' . $cle . '-EditerImage" class="file-input" name="image" accept="image/*" onchange="previewImageEdit(this);">
 				</div>';
 
 				// Afficher la miniature de l'image sélectionnée
 				echo '<div class="input-group AffichageRapideImg">
-					<img  data-image-editer="' . $cle . '-EditerImage" src="frontendAssets/images/'. $cle . '/'. $repas['nom_fichier'] . '" alt="" style="max-width: 100px; max-height: 100px;">
+					<img  data-image-editer="' . $repas['id'] . '-' . $cle . '-EditerImage" src="frontendAssets/images/'. $cle . '/'. $repas['nom_fichier'] . '" alt="" style="max-width: 100px; max-height: 100px;">
 				</div>';
 
 	

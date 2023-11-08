@@ -394,6 +394,13 @@ function supprimerRepas() {
     if (isset($_POST['id']) && isset($_POST['typeRepas'])) {
         $entryId = $_POST['id'];
         $typeRepas = $_POST['typeRepas'];
+        $imageNom = $_POST['image'];
+        $path = 'frontendAssets/images/' . $typeRepas. '/'. $imageNom;
+        echo($path);
+        if (file_exists($path)) {
+            unlink($path);
+        }
+ 
 
         // Placez ici votre code pour la connexion à la base de données
         $db = new PDO('sqlite:db/database.db');
