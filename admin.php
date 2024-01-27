@@ -342,12 +342,15 @@ $listeCleValeurAdmin = [
 				// Afficher la miniature de l'image sélectionnée
 				echo '<div class="input-group AffichageRapideImg">
 					<img  data-image-editer="' . $repas['id'] . '-' . $cle . '-EditerImage" src="frontendAssets/images/'. $cle . '/'. $repas['nom_fichier'] . '" alt="" style="max-width: 100px; max-height: 100px;">
+					
 				</div>';
 
 	
 
 				echo '<div class="input-group">';
-				echo '<input type="text" class="input-field" name="nom" placeholder="Nom" value="' . $repas['nom'] . '">';
+				echo '<input type="text" class="input-field" name="nom" placeholder="Nom" value="' . $repas['nom'] . '"> 
+				<input type="hidden" name="image" value="' . $repas['nom_fichier'] . '">';
+				
 				echo '</div>';
 				echo '<div class="input-group">';
 				echo '<textarea type="text" class="input-field" name="description" placeholder="Description" value="' . $repas['description'] . '">' . $repas['description'] . '</textarea>';

@@ -139,115 +139,38 @@ function editerUser() {
 
 function ajouterRepas() {
     // Assurez-vous de bien récupérer les valeurs du type de repas et des nouvelles données.
-    // Assurez-vous de bien récupérer les valeurs du type de repas et des nouvelles données.
     $typeRepas = $_POST['typeRepas'];
     $newTitre = $_POST['nom'];
     $newDescription = $_POST['description'];
     $newPrix = $_POST['prix'];
 
-    // Récupérez le nom du fichier image depuis $_FILES
-    $newImage = $_FILES['image']['name'];
-    print_r($newImage);
-    $finalNewImage = '';
-    // Assurez-vous d'avoir le bon chemin vers le répertoire
-    $path = 'frontendAssets/images/' . $typeRepas;
-    $imageExiste = 0;
+    $pathDossier = 'frontendAssets/images/' . $typeRepas;
+    $newImage = "";
+    $nomFinalImage = "";
 
-    // Vérifiez si le répertoire existe
-    if (is_dir($path)) {
-        // Ouvrez le répertoire
-        $dir = opendir($path);
+    // Vérifier si $newImage est défini
+    if (isset($_FILES['image']['name'])) {
+        // Récupérez le nom du fichier image depuis $_FILES
+        $newImage = $_FILES['image']['name'];
+        //print_r($newImage);
 
-        // Parcourez les fichiers du répertoire
-        while (($file = readdir($dir)) !== false) {
-            // Vérifiez si le fichier est une image (vous pouvez ajuster cette condition)
-            if (in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'gif'])) {
-                // Le fichier est une image
-                echo "Image trouvée : " . $file . "<br>";
-                if ($newImage === $file) {
-                    $imageExiste = 1;
-                    break;
-                }
-            }
-        }
+        
+        // Appel à ajouterImage et vérification du résultat
+        $resultatAjout = ajouterImage($newImage, $pathDossier);
 
-        // Fermez le répertoire
-        closedir($dir);
-
-        //  SI L IMAGE  EXISTE  DEJA DANS LE REPERTOIRE
-        if ($imageExiste === 1) {
-            $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-            $nouveauNom = uniqid() . '.' . $extension;
-            $destination = $path . '/' . $nouveauNom;
-        
-            // Vérifiez si le fichier image avec le nouveau nom existe déjà
-            while (file_exists($destination)) {
-                $nouveauNom = uniqid() . '.' . $extension;
-                $destination = $path . '/' . $nouveauNom;
-            }
-        
-            // Téléchargez le fichier avec le nouveau nom
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
-                echo "Image téléchargée avec succès.";
-        
-                // Redimensionnez l'image à 100x100 pixels tout en conservant ses proportions
-                $image = imagecreatefromstring(file_get_contents($destination));
-                $nouvelleLargeur = 100;
-                $nouvelleHauteur = 100;
-                list($largeur, $hauteur) = getimagesize($destination);
-        
-                $nouvelleImage = imagecreatetruecolor($nouvelleLargeur, $nouvelleHauteur);
-        
-                imagecopyresampled(
-                    $nouvelleImage,
-                    $image,
-                    0,
-                    0,
-                    0,
-                    0,
-                    $nouvelleLargeur,
-                    $nouvelleHauteur,
-                    $largeur,
-                    $hauteur
-                );
-        
-                // Sauvegardez l'image redimensionnée
-                imagejpeg($nouvelleImage, $destination);
-        
-                // Vous pouvez effectuer d'autres actions ici en cas de succès.
-            } else {
-                echo "Image doublon Erreur lors du téléchargement de l'image.";
-                // Gérez les erreurs de téléchargement ici.
-            }
-        }
-        
-    }
-
-    // SI L IMAGE N EXISTE PAS DEJA DANS LE REPERTOIRE
-    if ($imageExiste === 0) {
-        // Vérifiez si un fichier a été téléchargé
-        if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $tmpPath = $_FILES['image']['tmp_name'];
-            $destination = $path . '/' . $newImage;
-
-            // Téléchargez le fichier
-            if (move_uploaded_file($tmpPath, $destination)) {
-                echo "Image unique téléchargée avec succès.";
-                $finalNewImage = $newImage;
-                // Vous pouvez effectuer d'autres actions ici en cas de succès.
-            } else {
-                echo "Erreur lors du téléchargement de l'image.";
-                // Gérez les erreurs de téléchargement ici.
-            }
+        if ($resultatAjout !== false) {
+            // Si l'ajout est réussi, assigner la valeur à $nomFinalImage
+            $nomFinalImage = $resultatAjout;
         } else {
-            echo "Aucun fichier image téléchargé ou erreur de téléchargement.";
-            // Gérez le cas où aucun fichier n'a été téléchargé ou s'il y a eu une erreur.
+            // Gérer le cas où l'ajout a échoué
+            echo "Erreur lors de l'ajout de l'image.";
         }
+    } else {
+        // Gérer le cas où $newImage n'est pas défini
+        echo "Aucun fichier image n'a été fourni.";
     }
 
-
-
-
+        
 
 
      
@@ -259,7 +182,6 @@ function ajouterRepas() {
     $stmt = $db->prepare($insertQuery);
     $stmt->bindParam(':titre', $newTitre, PDO::PARAM_STR);
     $stmt->bindParam(':description', $newDescription, PDO::PARAM_STR);
-    $stmt->bindParam(':nom_fichier', $finalNewImage, PDO::PARAM_STR); // Ajoutez cette ligne pour lier le nom_fichier
 
 
     // Vous pouvez récupérer les valeurs des cases cochées ici
@@ -277,6 +199,8 @@ function ajouterRepas() {
 
     // Assurez-vous de définir $newPrix correctement
     $stmt->bindParam(':prix', $newPrix, PDO::PARAM_STR);
+    $stmt->bindParam(':nom_fichier', $nomFinalImage, PDO::PARAM_STR); // Ajoutez cette ligne pour lier le nom_fichier
+
 
     if ($stmt->execute()) {
         header("Location: admin.php");
@@ -293,89 +217,41 @@ function editerRepas() {
     $newTitre = $_POST['nom'];
     $newDescription = $_POST['description'];
     $newPrix = $_POST['prix'];
+    $imageNom = $_POST['image'];
+    $pathDossier = 'frontendAssets/images/' . $typeRepas;
 
-    // Récupérez le nom du fichier image depuis $_FILES
-    $newImage = $_FILES['image']['name'];
-    print('        la new image apres       ');
-    print_r($newImage);
-    print('         la new image avant       ');
-    $finalNewImage = '';
-    // Assurez-vous d'avoir le bon chemin vers le répertoire
-    $path = 'frontendAssets/images/' . $typeRepas;
-    $imageExiste = 0;
+    $newImage = "";
+    $nomFinalImage = "";
 
-    // Vérifiez si le répertoire existe
-    if (is_dir($path)) {
-        // Ouvrez le répertoire
-        $dir = opendir($path);
+    // Vérifier si $newImage est défini
+    if (isset($_FILES['image']['name'])) {
+        // Récupérez le nom du fichier image depuis $_FILES
+        $newImage = $_FILES['image']['name'];
+        //print_r($newImage);
+        
+        // Appel à ajouterImage et vérification du résultat
+        $resultatAjout = ajouterImage($newImage, $pathDossier);
 
-        // Parcourez les fichiers du répertoire
-        while (($file = readdir($dir)) !== false) {
-            // Vérifiez si le fichier est une image (vous pouvez ajuster cette condition)
-            if (in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'gif'])) {
-                // Le fichier est une image
-                echo "Image trouvée : " . $file . "<br>";
-                if ($newImage === $file) {
-                    $imageExiste = 1;
-                    break;
-                }
-            }
-        }
-
-        // Fermez le répertoire
-        closedir($dir);
-
-        //  SI L IMAGE  EXISTE  DEJA DANS LE REPERTOIRE
-        if ($imageExiste === 1) {
-            $extension = pathinfo($newImage, PATHINFO_EXTENSION);
-            $nouveauNom = uniqid() . '.' . $extension;
-            $destination = $path . '/' . $nouveauNom;
-
-            // Vérifiez si le fichier image avec le nouveau nom existe déjà
-            while (file_exists($destination)) {
-                $nouveauNom = uniqid() . '.' . $extension;
-                $destination = $path . '/' . $nouveauNom;
-            }
-
-            // Téléchargez le fichier avec le nouveau nom
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
-                echo "Image téléchargée avec succès.";
-                $finalNewImage = $nouveauNom;
-
-                // Vous pouvez effectuer d'autres actions ici en cas de succès.
-            } else {
-                echo "Image doublon Erreur lors du téléchargement de l'image.";
-                // Gérez les erreurs de téléchargement ici.
-            }
-        }
-    }
-
-    // SI L IMAGE N EXISTE PAS DEJA DANS LE REPERTOIRE
-    if ($imageExiste === 0) {
-        // Vérifiez si un fichier a été téléchargé
-        if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $tmpPath = $_FILES['image']['tmp_name'];
-            $destination = $path . '/' . $newImage;
-
-            // Téléchargez le fichier
-            if (move_uploaded_file($tmpPath, $destination)) {
-                echo "Image unique téléchargée avec succès.";
-                $finalNewImage = $newImage;
-                // Vous pouvez effectuer d'autres actions ici en cas de succès.
-            } else {
-                echo "Erreur lors du téléchargement de l'image.";
-                // Gérez les erreurs de téléchargement ici.
-            }
+        if ($resultatAjout !== false) {
+            // Si l'ajout est réussi, assigner la valeur à $nomFinalImage
+            $nomFinalImage = $resultatAjout;
         } else {
-            echo "Aucun fichier image téléchargé ou erreur de téléchargement.";
-            // Gérez le cas où aucun fichier n'a été téléchargé ou s'il y a eu une erreur.
+            // Gérer le cas où l'ajout a échoué
+            echo "Erreur lors de l'ajout de l'image.";
         }
+    } else {
+        // Gérer le cas où $newImage n'est pas défini
+        echo "Aucun fichier image n'a été fourni.";
     }
+
+
+
+
 
     $db = new PDO('sqlite:db/database.db');
     // Préparez la requête de mise à jour
     $updateQuery = "UPDATE $typeRepas SET nom = :titre, description = :description, lundi = :lundi, mardi = :mardi, mercredi = :mercredi, jeudi = :jeudi, vendredi = :vendredi, prix = :prix";
-    if (!empty($finalNewImage)) {
+    if ($nomFinalImage != "") {
         $updateQuery .= ", nom_fichier = :nom_fichier";
     }
     $updateQuery .= " WHERE id = :id";
@@ -400,8 +276,16 @@ function editerRepas() {
     // Assurez-vous de définir $newPrix correctement
     $stmt->bindParam(':prix', $newPrix, PDO::PARAM_STR);
 
-    if (!empty($finalNewImage)) {
-        $stmt->bindParam(':nom_fichier', $finalNewImage, PDO::PARAM_STR);
+    if ($nomFinalImage != "") {
+        $stmt->bindParam(':nom_fichier', $nomFinalImage, PDO::PARAM_STR);
+        if (supprimerImage($imageNom, $pathDossier)) {
+            // Suppression réussie
+            echo 'Suppression réussie';
+        } else {
+            // Suppression échouée
+            echo 'Échec de la suppression';
+        }
+
     }
 
     if ($stmt->execute()) {
@@ -412,6 +296,7 @@ function editerRepas() {
     }
 
     
+        
 }
 
 function supprimerRepas() {
@@ -419,11 +304,17 @@ function supprimerRepas() {
         $entryId = $_POST['id'];
         $typeRepas = $_POST['typeRepas'];
         $imageNom = $_POST['image'];
-        $path = 'frontendAssets/images/' . $typeRepas. '/'. $imageNom;
-        echo($path);
-        if (file_exists($path)) {
-            unlink($path);
+        $pathDossier = 'frontendAssets/images/' . $typeRepas;
+        
+        if (supprimerImage($imageNom, $pathDossier)) {
+            // Suppression réussie
+            echo 'Suppression réussie';
+        } else {
+            // Suppression échouée
+            echo 'Échec de la suppression';
         }
+        
+
  
 
         // Placez ici votre code pour la connexion à la base de données
@@ -450,6 +341,132 @@ function supprimerRepas() {
         header('Location: admin.php');
         exit;
     }
+}
+
+
+//Gestion des images
+
+function ajouterImage($image, $pathDossier) {
+    // Si l'image existe déjà
+    if (imageOuDossierExiste($image, $pathDossier)) {
+
+        $nouveauNomImage = genererNomImage($image, $pathDossier);
+
+        if (telechargerImage($nouveauNomImage, $pathDossier)) {
+            print('Téléchargement réussi');
+            return $nouveauNomImage;
+        } else {
+            print('Échec du téléchargement');
+            return false;
+        }
+
+    } else {
+        // Si l'image n'existe pas encore, téléchargez directement
+        if (telechargerImage($image, $pathDossier)) {
+            print('Téléchargement réussi');
+            return $image;
+        } else {
+            print('Échec du téléchargement');
+            return false;
+        }
+    }
+}
+
+function supprimerImage($image, $pathDossier) {
+    $path = $pathDossier . "/" . $image;
+
+    // Vérifier si le fichier existe avant de le supprimer
+    if (file_exists($path)) {
+        // Supprimer le fichier
+        if (unlink($path)) {
+            // La suppression a réussi
+            return true;
+        } else {
+            // La suppression a échoué
+            return false;
+        }
+    } else {
+        // Le fichier n'existe pas
+        return false;
+    }
+}
+
+function imageOuDossierExiste($image, $pathDossier){
+ 
+    // Vérifiez si le répertoire existe
+    if (is_dir($pathDossier)) {
+        // Ouvrez le répertoire
+        $dir = opendir($pathDossier);
+
+        // Parcourez les fichiers du répertoire
+        while (($file = readdir($dir)) !== false) {
+            // Vérifiez si le fichier est une image (vous pouvez ajuster cette condition)
+            if (in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'gif', 'heic'])) {
+                // Le fichier est une image
+                echo "Image trouvée : " . $file . "<br>";
+                if ($image === $file) {
+                    break;
+                    closedir($dir);
+                    return True;
+                }
+            }
+        }
+
+        // Si image pas trouvé
+        closedir($dir);
+        return False;
+    }
+
+}
+
+function telechargerImage($image, $pathDossier) {
+    $tmpPath = $_FILES['image']['tmp_name'];
+    $destination = $pathDossier . '/' . $image;
+
+    // Téléchargez le fichier
+    if (move_uploaded_file($tmpPath, $destination)) {
+        // Redimensionnez l'image à 100x100 pixels tout en conservant ses proportions
+        $imageModification = imagecreatefromstring(file_get_contents($destination));
+        $nouvelleLargeur = 100;
+        $nouvelleHauteur = 100;
+        list($largeur, $hauteur) = getimagesize($destination);
+
+        $nouvelleImage = imagecreatetruecolor($nouvelleLargeur, $nouvelleHauteur);
+
+        imagecopyresampled(
+            $nouvelleImage,
+            $imageModification,
+            0,
+            0,
+            0,
+            0,
+            $nouvelleLargeur,
+            $nouvelleHauteur,
+            $largeur,
+            $hauteur
+        );
+
+        // Sauvegardez l'image redimensionnée
+        imagejpeg($nouvelleImage, $destination);
+
+        return true;  // Retourne true en cas de succès
+    } else {
+        return false;  // Retourne false en cas d'échec
+    }
+}
+
+function genererNomImage($image, $pathDossier) {
+    $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+    
+    $nouveauNomInitial = uniqid() . '.' . $extension;
+    $nouveauNom = $nouveauNomInitial;
+
+    // Si l'image avec le même nom existe déjà, générer un nouveau nom unique
+    while (imageOuDossierExiste($nouveauNom, $pathDossier)) {
+        $nouveauNom = uniqid() . '.' . $extension;
+    }
+
+    return $nouveauNom;
 }
 
 

@@ -87,6 +87,7 @@ $db->exec($createDessertsTableQuery);
 $db->exec($createAdminsTableQuery);
 
 // Insertion de données de test dans la table "entree"
+/*
 $insertDataEntreeQuery = "
     INSERT INTO entrees (nom, image, nom_fichier, prix, description, lundi, mardi, mercredi, jeudi, vendredi)
     VALUES
@@ -114,6 +115,7 @@ $insertDataDessertsQuery = "
         ('Dessert 1', 'image1.jpg', NULL, 5.99, 'Description du dessert 1', 1, 0, 1, 0, 1),
         ('Dessert 2', 'image2.jpg', NULL, 4.99, 'Description du dessert 2', 0, 1, 0, 1, 0)
 ";
+*/
 
 $superAdminNom = 'admin';
 $superAdminEmail = 'superadmin@example.com';
@@ -134,11 +136,12 @@ $insertClientQuery = "
     INSERT INTO administrateurs (nom, email, mot_de_passe, groupe_id) VALUES
     ('$clientNom', '$clientEmail', '$clientMotDePasse', $clientGroupeId)
 ";
-
+/*
 $db->exec($insertDataEntreeQuery);
 $db->exec($insertDataBoissonsQuery);
 $db->exec($insertDataPlatsQuery);
 $db->exec($insertDataDessertsQuery);
+*/
 $db->exec($insertSuperAdminQuery);
 $db->exec($insertClientQuery);
 
